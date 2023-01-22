@@ -1,0 +1,33 @@
+<RCC>
+  <qresource prefix="images">
+    <file>images/icons/cancel.png</file>
+    <file>images/icons/vrf.png</file>
+    <file>images/icons/circled-envelope.png</file>
+    <file>images/icons/close-window.png</file>
+    <file>images/icons/copy.png</file>
+    <file>images/icons/delete.png</file>
+    <file>images/icons/ethernet.png</file>
+    <file>images/icons/icon.ico</file>
+    <file>images/icons/icon.png</file>
+    <file>images/icons/info.png</file>
+    <file>images/icons/key.png</file>
+    <file>images/icons/key-security.png</file>
+    <file>images/icons/no-network.png</file>
+    <file>images/icons/ok.png</file>
+    <file>images/icons/paste.png</file>
+    <file>images/icons/plus.png</file>
+    <file>images/icons/refresh.png</file>
+    <file>images/icons/satelital.png</file>
+    <file>images/icons/search.png</file>
+    <file>images/icons/settings.png</file>
+    <file>images/icons/support.png</file>
+    <file>images/icons/tv.png</file>
+    <file>images/icons/tv-antenna.png</file>
+    <file>images/icons/unavailable.png</file>
+    <file>images/icons/user.png</file>
+    <file>images/icons/whatsapp.png</file>
+    <file>images/icons/wi-fi-router.png</file>
+    <file>images/icon.ico</file>
+    <file>images/icon.png</file>
+  </qresource>
+</RCC>
