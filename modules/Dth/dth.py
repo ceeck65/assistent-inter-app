@@ -2,8 +2,8 @@
 
 from datetime import date
 from PyQt5.QtWidgets import QDialog, QMessageBox
-from dth_ui import Ui_Dialog
-from data import getDolar
+from modules.Dth.dth_ui import Ui_Dialog
+from modules.Data.data import getDolar
 
 
 class Dth(QDialog):

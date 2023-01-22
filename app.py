@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import (
 
 
 import time
-from main import WelcomeScreen
+from modules.Main.main import MainScreen
 
 
 class SplashScreen(QSplashScreen):
@@ -24,8 +24,6 @@ class SplashScreen(QSplashScreen):
             self.progressBar.setValue(i)
 
 
-
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     today =  date.today()
@@ -33,7 +31,7 @@ if __name__ == '__main__':
     splash = SplashScreen()
     splash.show()
     splash.progress()
-    main = WelcomeScreen()
+    main = MainScreen()
     splash.finish(main)
     main.show()
 

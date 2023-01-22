@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import (
     QDialog,
 )
 
-from fibrahogar_ui import Ui_Dialog
+from modules.Fibrahogar.fibrahogar_ui import Ui_Dialog
 
 
 class FibraHogar(QDialog):

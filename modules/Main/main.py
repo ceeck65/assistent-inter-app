@@ -2,17 +2,17 @@ import sys
 from builtins import super 
 from datetime import date
 from PyQt5 import QtWidgets
-from main_ui import Ui_MainWindow
+from modules.Main.main_ui import Ui_MainWindow
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QStackedWidget, qApp, QFrame)
 
 
-from fibrahogar import FibraHogar
-from dth import Dth
-from hfc import Hfc
+from modules.Fibrahogar.fibrahogar import FibraHogar
+from modules.Dth.dth import Dth
+from modules.Hfc.hfc import Hfc
 
 
 
-class WelcomeScreen(QMainWindow):
+class MainScreen(QMainWindow):
     def __init__(self):
         super(QMainWindow, self).__init__()
         self.ui = Ui_MainWindow()

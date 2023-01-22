@@ -7,7 +7,7 @@ Created on Sun Jan 22 05:02:29 2023
 # from datetime import date
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QDialog
-from hfc_ui import Ui_Dialog
+from modules.Hfc.hfc_ui import Ui_Dialog
 # from data import getDolar
 
 
