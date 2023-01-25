@@ -14,7 +14,7 @@
    <string>Asistente Soporte Inter WhatsApp Venezuela</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="images.qrc">
+   <iconset resource="../../images.qrc">
     <normaloff>:/images/images/icons/icon.png</normaloff>:/images/images/icons/icon.png</iconset>
   </property>
   <property name="iconSize">
@@ -55,6 +55,7 @@
     <property name="toolTipsVisible">
      <bool>true</bool>
     </property>
+    <addaction name="actionPrincipal"/>
     <addaction name="exitAction"/>
    </widget>
    <widget class="QMenu" name="menuSoportes">
@@ -85,7 +86,7 @@
      <bool>true</bool>
     </property>
     <addaction name="actionInternet_HFC"/>
-    <addaction name="actionTelevsi_n_por_cable"/>
+    <addaction name="action_hfc_tv"/>
     <addaction name="actionTelevisi_n_Satalital_DTH"/>
     <addaction name="actionFibra_Hogar"/>
     <addaction name="actionCorreos_electr_nicos"/>
@@ -99,6 +100,10 @@
     <property name="title">
      <string>Configuraciones</string>
     </property>
+    <addaction name="actionSettingsDolar"/>
+    <addaction name="actionConfiguraci_n_Precios"/>
+    <addaction name="actionConfiguraci_n_Plantillas"/>
+    <addaction name="actionProductos"/>
    </widget>
    <widget class="QMenu" name="menuAyuda_2">
     <property name="font">
@@ -128,6 +133,10 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionManual_de_usuario">
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/images/icons/user-manual.png</normaloff>:/images/images/icons/user-manual.png</iconset>
+   </property>
    <property name="text">
     <string>Manual de usuario</string>
    </property>
@@ -136,6 +145,10 @@
    </property>
   </action>
   <action name="actionAcerca_de">
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/images/icons/info.png</normaloff>:/images/images/icons/info.png</iconset>
+   </property>
    <property name="text">
     <string>Acerca de</string>
    </property>
@@ -145,11 +158,11 @@
   </action>
   <action name="actionInternet_HFC">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset resource="../../images.qrc">
      <normaloff>:/images/images/icons/ethernet.png</normaloff>:/images/images/icons/ethernet.png</iconset>
    </property>
    <property name="text">
-    <string>Internet HFC</string>
+    <string>Internet (HFC)</string>
    </property>
    <property name="font">
     <font>
@@ -157,13 +170,13 @@
     </font>
    </property>
   </action>
-  <action name="actionTelevsi_n_por_cable">
+  <action name="action_hfc_tv">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset resource="../../images.qrc">
      <normaloff>:/images/images/icons/tv-antenna.png</normaloff>:/images/images/icons/tv-antenna.png</iconset>
    </property>
    <property name="text">
-    <string>Televsión por cable</string>
+    <string>Televsión por cable (HFC)</string>
    </property>
    <property name="font">
     <font>
@@ -173,7 +186,7 @@
   </action>
   <action name="actionTelevisi_n_Satalital_DTH">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset resource="../../images.qrc">
      <normaloff>:/images/images/icons/satelital.png</normaloff>:/images/images/icons/satelital.png</iconset>
    </property>
    <property name="text">
@@ -187,7 +200,7 @@
   </action>
   <action name="actionFibra_Hogar">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset resource="../../images.qrc">
      <normaloff>:/images/images/icons/wi-fi-router.png</normaloff>:/images/images/icons/wi-fi-router.png</iconset>
    </property>
    <property name="text">
@@ -201,7 +214,7 @@
   </action>
   <action name="actionCorreos_electr_nicos">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset resource="../../images.qrc">
      <normaloff>:/images/images/icons/circled-envelope.png</normaloff>:/images/images/icons/circled-envelope.png</iconset>
    </property>
    <property name="text">
@@ -215,7 +228,7 @@
   </action>
   <action name="exitAction">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset resource="../../images.qrc">
      <normaloff>:/images/images/icons/close-window.png</normaloff>:/images/images/icons/close-window.png</iconset>
    </property>
    <property name="text">
@@ -225,9 +238,54 @@
     <string>Ctrl+Q</string>
    </property>
   </action>
+  <action name="actionSettingsDolar">
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/images/icons/dollar.png</normaloff>:/images/images/icons/dollar.png</iconset>
+   </property>
+   <property name="text">
+    <string>Precio dolar BCV</string>
+   </property>
+  </action>
+  <action name="actionConfiguraci_n_Precios">
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/images/icons/money.png</normaloff>:/images/images/icons/money.png</iconset>
+   </property>
+   <property name="text">
+    <string>Precios</string>
+   </property>
+  </action>
+  <action name="actionConfiguraci_n_Plantillas">
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/images/icons/content.png</normaloff>:/images/images/icons/content.png</iconset>
+   </property>
+   <property name="text">
+    <string>Plantillas</string>
+   </property>
+  </action>
+  <action name="actionProductos">
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/images/icons/package.png</normaloff>:/images/images/icons/package.png</iconset>
+   </property>
+   <property name="text">
+    <string>Productos</string>
+   </property>
+  </action>
+  <action name="actionPrincipal">
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/images/icons/dashboard.png</normaloff>:/images/images/icons/dashboard.png</iconset>
+   </property>
+   <property name="text">
+    <string>Principal</string>
+   </property>
+  </action>
  </widget>
  <resources>
-  <include location="images.qrc"/>
+  <include location="../../images.qrc"/>
  </resources>
  <connections/>
 </ui>

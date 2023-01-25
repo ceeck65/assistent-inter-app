@@ -1,0 +1,32 @@
+{
+	"dth": {
+		"STB": "// STB: ",
+		"CONTACT_SERVICE": ", se indica contactar personal técnico.-",
+		"SEND_COMAND": ", Se realiza el envio de comandos: ",
+		"NOT_SEND_COMAND": ", No se realiza el envio de comandos",
+		"INSUCCESSFULY_SEND_COMAND": ", Comando S/E",
+		"RESET_INSUCCESSFULY": ", reset s/e,",
+		"RESET_SUCESSFUL": ", reset c/e,",
+		"WAITING": ", se indica lapso de espera 2 hrs.-",
+		"SUPPORT_SUCESSFUL": ", Soporte C/E, se finaliza.-",
+		"CLEAR_WEATHER": ", clima despejado",
+		"CONNECTION_OK": ", conexiones ok",
+		"REFRESH": "REFRESH"
+	},
+	"hfc": {
+		"SUPPORT": "SE SUGIERE BRINDAR SOPORTE",
+		"SERVICE": "INGRESAR ORDEN DE SERVICIO TÉCNICO",
+		"SUGGESTED_SERVICE": "SE SUGIERE INGRESAR ORDEN DE SERVICIO TÉCNICO",
+		"PING_OK": ", ping 200 ok",
+		"PING": ", ping",
+		"PING_NO_RESPONSE": ", ping sin respuesta",
+		"SUPPORT_INSUCCESSFULY": ", soporte s/e",
+		"SUPPORT_SUCESSFUL": ", soporte c/e",
+		"FAILURE_AB": "// Ab alega fallas en servicio de internet",
+		"CONNECT_DISCONECT": ", Conect/Desc",
+		"CM":", CM:",
+		"CALL_BEFORE": ", favor agilizar, llamar antes.-",
+		"TV_OK": ", TV OK",
+		"TV_FAILURE": ", TV FALLA"
+	}
+}

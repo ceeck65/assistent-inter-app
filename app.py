@@ -1,28 +1,39 @@
 import sys 
 from builtins import super 
 from datetime import date
-from PyQt5.uic import loadUi
+from splash_ui import Ui_Dialog
 
 from PyQt5.QtWidgets import (
     QApplication,
     QSplashScreen
 )
 
-
+from PyQt5.QtWidgets import QDesktopWidget
 import time
 from modules.Main.main import MainScreen
-
+from PyQt5.QtCore    import Qt
 
 class SplashScreen(QSplashScreen):
     def __init__(self):
         super(QSplashScreen, self).__init__()
-        loadUi("splash.ui", self)
+        self.ui = Ui_Dialog()
+        self.ui.setupUi(self)
+        self.setWindowFlag(Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
+        self.center()
 
     def progress(self):
-        for i in range(100):
+        for i in range(101):
             time.sleep(0.01)
-            self.progressBar.setValue(i)
-
+            self.ui.progressBar.setValue(i)
+            
+    def center(self):
+        qr = self.frameGeometry()
+        cp = QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+        
+        
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
@@ -33,9 +44,9 @@ if __name__ == '__main__':
     splash.progress()
     main = MainScreen()
     splash.finish(main)
-    main.show()
+    main.showMaximized()
 
 try:
     sys.exit(app.exec_())
 except:
-    print("Saliendo")
+    print("Exit App")

@@ -2,3 +2,6 @@
 /envorimentQt
 .idea
 /venv
+/build
+compiler.iss
+app.spec

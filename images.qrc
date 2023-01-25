@@ -1,17 +1,25 @@
 <RCC>
   <qresource prefix="images">
+    <file>images/icons/dashboard.png</file>
+    <file>images/icons/content.png</file>
+    <file>images/icons/money.png</file>
+    <file>images/icons/package.png</file>
+    <file>images/icons/user-manual.png</file>
+    <file>images/icon.ico</file>
+    <file>images/icon.png</file>
     <file>images/icons/cancel.png</file>
-    <file>images/icons/vrf.png</file>
     <file>images/icons/circled-envelope.png</file>
     <file>images/icons/close-window.png</file>
     <file>images/icons/copy.png</file>
     <file>images/icons/delete.png</file>
+    <file>images/icons/dollar.png</file>
     <file>images/icons/ethernet.png</file>
     <file>images/icons/icon.ico</file>
     <file>images/icons/icon.png</file>
     <file>images/icons/info.png</file>
     <file>images/icons/key.png</file>
     <file>images/icons/key-security.png</file>
+    <file>images/icons/minus.png</file>
     <file>images/icons/no-network.png</file>
     <file>images/icons/ok.png</file>
     <file>images/icons/paste.png</file>
@@ -25,9 +33,8 @@
     <file>images/icons/tv-antenna.png</file>
     <file>images/icons/unavailable.png</file>
     <file>images/icons/user.png</file>
+    <file>images/icons/vrf.png</file>
     <file>images/icons/whatsapp.png</file>
     <file>images/icons/wi-fi-router.png</file>
-    <file>images/icon.ico</file>
-    <file>images/icon.png</file>
   </qresource>
 </RCC>

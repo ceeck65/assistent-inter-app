@@ -9,6 +9,8 @@ from PyQt5 import QtCore
 from PyQt5.QtWidgets import QDialog
 from modules.Hfc.hfc_ui import Ui_Dialog
 # from data import getDolar
+from modules.Data.templates import getTemplate, getLabel
+from modules.Data.data import getPricesByProducts
 
 
 class Hfc(QDialog):
@@ -33,9 +35,9 @@ class Hfc(QDialog):
          self.ui.rf_ajust_pot.stateChanged.connect (self.checkRf)
          self.ui.service_hfc.setText("")
          self.ui.combo_cm_mta.activated.connect(self.changeMtaModen)
-         
-         
-         
+
+         self.ui.btn_ticket_hfc_sale.clicked.connect(self.testDatabase)
+                
 	def disableRf(self, state):
          if state == QtCore.Qt.Checked:
             self.ui.widget_2.setStyleSheet("background-color: rgb(125, 206, 160 );")  
@@ -80,39 +82,38 @@ class Hfc(QDialog):
             self.rfChange()
          
 	def rfChange(self):
-         
+         labels = getLabel('hfc')
          if self.ui.rf_ok.isChecked():
              self.ui.widget_2.setStyleSheet("background-color: rgb(125, 206, 160);")
          else:
              if self.ui.rf_dwpw.isChecked() or self.ui.rf_uppw.isChecked() or self.ui.rf_rxpw.isChecked() or self.ui.rf_dwsnr.isChecked() or self.ui.rf_upsnr.isChecked():
                  self.ui.widget_2.setStyleSheet("background-color: rgb(253, 242, 233);")
              if self.ui.combo_cm_mta.currentIndex() == 0:
-                 self.ui.service_hfc.setText("SE SUGIERE BRINDAR SOPORTE")
+                 self.ui.service_hfc.setText(labels["SUPPORT"])
              else:
-                 self.ui.service_hfc.setText("SE SUGIERE INGRESAR ORDEN DE SERVICIO TÉCNICO")
+                 self.ui.service_hfc.setText(labels["SUGGESTED_SERVICE"])
 
              if self.ui.rf_dwpw.isChecked() and self.ui.rf_uppw.isChecked():
                  self.ui.widget_2.setStyleSheet("background-color: rgb(249, 231, 159);")
-                 self.ui.service_hfc.setText("SE SUGIERE INGRESAR ORDEN DE SERVICIO TÉCNICO")
+                 self.ui.service_hfc.setText(labels["SUGGESTED_SERVICE"])
              if self.ui.rf_uppw.isChecked() and self.ui.rf_dwsnr.isChecked() and self.ui.rf_upsnr.isChecked():
                  self.ui.widget_2.setStyleSheet("background-color: rgb(235, 152, 78);")
-                 self.ui.service_hfc.setText("SE SUGIERE INGRESAR ORDEN DE SERVICIO TÉCNICO")
+                 self.ui.service_hfc.setText(labels["SUGGESTED_SERVICE"])
              if self.ui.rf_hit_miss.isChecked() or self.ui.rf_ajust_pot.isChecked() or self.ui.rf_flaps.isChecked():
                  self.ui.widget_2.setStyleSheet("background-color: rgb(231, 76, 60);")
-                 self.ui.service_hfc.setText("INGRESAR ORDEN DE SERVICIO TÉCNICO")
+                 self.ui.service_hfc.setText(labels["SUPPORT"])
              if not self.ui.rf_dwpw.isChecked() and not self.ui.rf_rxpw.isChecked() and not self.ui.rf_uppw.isChecked() and not self.ui.rf_dwsnr.isChecked() and not self.ui.rf_upsnr.isChecked() and not self.ui.rf_hit_miss.isChecked() and not self.ui.rf_flaps.isChecked() and not self.ui.rf_ajust_pot.isChecked():
                  self.ui.widget_2.setStyleSheet("background-color: rgb(235, 235, 235);")    
-         
-         
+                 
 	def textVRF(self):
          _textVRF_ = ""
          prefix_textVRF = ""
          if self.ui.rf_ok.isChecked():
-            prefix_textVRF = "Valores RF"
-            _textVRF_ = "(OK)"
+            prefix_textVRF = ", Valores RF"
+            _textVRF_ = " (OK)"
          else:
             if self.ui.rf_dwpw.isChecked() or self.ui.rf_uppw.isChecked() or self.ui.rf_rxpw.isChecked() or self.ui.rf_dwsnr.isChecked() or self.ui.rf_upsnr.isChecked() or self.ui.rf_hit_miss.isChecked() or self.ui.rf_ajust_pot.isChecked() or self.ui.rf_flaps.isChecked():
-                prefix_textVRF = "Valores RF"
+                prefix_textVRF = ", Valores RF"
                 _textVRF_ = ""
                 if self.ui.rf_dwpw.isChecked():
                     _textVRF_ = _textVRF_ + "DwPw, "
@@ -132,31 +133,32 @@ class Hfc(QDialog):
                     _textVRF_ = _textVRF_ + "Flaps, "
                 temp = "(%s)" % _textVRF_
                 temp = temp.replace(", )", ")")
-                _textVRF_ = temp
+                _textVRF_ = " %s alterados" % temp
             else:
                 _textVRF_ = ""
                 prefix_textVRF = ""
-         return "%s %s alterados" %(prefix_textVRF, _textVRF_)
-
-        
-
+         return "%s%s" %(prefix_textVRF, _textVRF_)
+      
 	def changeMtaModen(self, state):
+         labels = getLabel('hfc')
+         template = getTemplate("hfc_support")
+         self.ui.ticket_ab_hfc_internet.clear()
          if state == 0:
             self.rfChange()
             self.ui.service_hfc.setText("")
          else:
-            self.ui.service_hfc.setText("SE SUGIERE INGRESAR ORDEN DE SERVICIO TÉCNICO")
+            self.ui.service_hfc.setText(labels["SUGGESTED_SERVICE"])
+            self.ui.ticket_ab_hfc_internet.insertHtml(template['subscriber'][0]["service"])
             self.ui.widget_2.setStyleSheet("background-color: rgb(249, 231, 159);")
          pass
-         
-     
-        
+              
 	def generateTicketInternetHCF(self):
+         labels = getLabel('hfc')
          self.ui.ticket_k2b_hfc_internet.clear()
          vrf = self.textVRF()
          cm_mta = self.ui.combo_cm_mta.currentText()
          hfc_tv = ""
-         hfc_reset = ", Conect/Desc," if self.ui.hfc_reset.isChecked() else ""
+         hfc_reset = labels["CONNECT_DISCONECT"] if self.ui.hfc_reset.isChecked() else ""
          plan_internet = self.ui.combo_plan_internet.currentText()
          ping = ""
          soporte = ""
@@ -177,27 +179,29 @@ class Hfc(QDialog):
             subida = "Up: %s%s," % (sd, sv)
 
          if self.ui.ping_ok.isChecked():
-            ping = "ping 200 ok"
+            ping = labels["PING_OK"]
          if self.ui.ping_sin_respuesta.isChecked():
-            ping = "ping sin respuesta"
+            ping = labels["PING_NO_RESPONSE"]
          if self.ui.ping_low.isChecked():
-            ping = "ping %s/200" % self.ui.ping_txt.value()
+            ping = "%s %s/200" % (labels["PING"], self.ui.ping_txt.value())
 
          if self.ui.hfc_tv_ok.isChecked():
-            hfc_tv = ", TV OK,"
+            hfc_tv = labels["TV_OK"]
          if self.ui.hfc_tv_fail.isChecked():
-            hfc_tv = ", TV FALLA,"
+            hfc_tv = labels["TV_FAILURE"]
 
          if self.ui.hfc_soporte_xon_exitos.isChecked():
-            soporte = ", soporte c/e"
+            soporte = labels["SUPPORT_SUCESSFUL"]
          if self.ui.hfc_soporte_sin_exitos.isChecked():
-            soporte = ", soporte s/e"
+            soporte = labels["SUPPORT_INSUCCESSFULY"]
 
-         txtTicketK2B = "// Ab alega fallas en servicio de internet, CM: %s %s %s %s %s, %s  %s  %s %s, favor agilizar, llamar antes.-" % (cm_mta, vrf, hfc_tv, hfc_reset, plan_internet, ping, descarga, subida, soporte)
+         cm_mta = " %s" % cm_mta
+         plan_internet = ", %s" % plan_internet
+
+         txtTicketK2B = "%s%s%s%s%s%s%s%s%s%s%s%s" % (labels["FAILURE_AB"], labels["CM"],cm_mta, vrf, hfc_tv, hfc_reset, plan_internet, ping, descarga, subida, soporte, labels["CALL_BEFORE"])
       
          self.ui.ticket_k2b_hfc_internet.insertPlainText(txtTicketK2B)
-         
-         
+                 
 	def clearInternetHCF(self):
          self.ui.rf_dwpw.setChecked(False)
          self.ui.rf_rxpw.setChecked(False)
@@ -218,3 +222,8 @@ class Hfc(QDialog):
          self.ui.combo_cm_mta.setCurrentIndex(0)
          self.ui.combo_plan_internet.setCurrentIndex(0)
          self.ui.widget_2.setStyleSheet("background-color: rgb(235, 235, 235);")
+
+	def testDatabase(self):
+         query = getPricesByProducts("dth")
+         print(query.value(0))
+         pass
