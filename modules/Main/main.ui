@@ -23,7 +23,41 @@
     <height>48</height>
    </size>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="sizeConstraint">
+     <enum>QLayout::SetDefaultConstraint</enum>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QFrame" name="frame">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -126,9 +160,25 @@
     <addaction name="actionManual_de_usuario"/>
     <addaction name="actionAcerca_de"/>
    </widget>
+   <widget class="QMenu" name="menuManuales">
+    <property name="title">
+     <string>Manuales</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuGrillas">
+    <property name="title">
+     <string>Programación</string>
+    </property>
+    <addaction name="actionInter_Satelital"/>
+    <addaction name="actionInter_DVB"/>
+    <addaction name="actionGrilla_Nacional"/>
+    <addaction name="actionGrilla_HISPASAT"/>
+   </widget>
    <addaction name="menuInicio"/>
    <addaction name="menuSoportes"/>
    <addaction name="menuAyuda"/>
+   <addaction name="menuGrillas"/>
+   <addaction name="menuManuales"/>
    <addaction name="menuAyuda_2"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -281,6 +331,26 @@
    </property>
    <property name="text">
     <string>Principal</string>
+   </property>
+  </action>
+  <action name="actionInter_Satelital">
+   <property name="text">
+    <string>Grilla Inter Satelital</string>
+   </property>
+  </action>
+  <action name="actionInter_DVB">
+   <property name="text">
+    <string>GrillaInter DVB</string>
+   </property>
+  </action>
+  <action name="actionGrilla_Nacional">
+   <property name="text">
+    <string>Grilla Nacional </string>
+   </property>
+  </action>
+  <action name="actionGrilla_HISPASAT">
+   <property name="text">
+    <string>Grilla HISPASAT</string>
    </property>
   </action>
  </widget>
