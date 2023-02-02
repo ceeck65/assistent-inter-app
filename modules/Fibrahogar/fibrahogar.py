@@ -22,6 +22,8 @@ class FibraHogar(QDialog):
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.generatePremium()
+        self.ui.is_internet_fibrahogar.stateChanged.connect (self.fillComboInternet)
+        self.ui.btn_clear_fibrahogar.clicked.connect(self.clearFibra)
 
 
     def generatePremium(self):
@@ -40,33 +42,24 @@ class FibraHogar(QDialog):
             alias = query.record(i).value("alias")
             self.createCheckboxes(name, alias, position_x, position_y, with_box, heigth_box)
 
-
+    def fillComboInternet(self, state):
+        combo = self.ui.combo_internet_fibrahogar
+        if state == QtCore.Qt.Checked:
+            model = self.getPriceProducts(5)
+            combo.setEnabled(True)
+            combo.setModel(model)
+            combo.setModelColumn(1)
+        else:
+            combo.setEnabled(False)
     
+    def getPriceProducts(self, product):
+        sql = "SELECT plans_packages.id, plans_packages.name as name, price_ves, price_usd, alias FROM products \
+                INNER JOIN plans_packages on plans_packages.product_id = products.id \
+                WHERE products.id = %d and type_product_id = 5 or type_product_id = 8" % (product)
+        query = self.db.getData(sql)
+        return query 
 
 
-
-    # def generateCheck(self):
-    #     position_y = 0
-    #     heigth_box = 0
-    #     with_box = 0
-    #     position_x = 0
-    #     with_checkbox = 0
-    #     heigth_checkbox = 0
-
-    #     for x in range(2):
-    #         position_x = position_x + with_checkbox
-    #         with_box = position_x + with_box + 100
-    #         for y in range(2):
-    #             position_y = position_y + heigth_checkbox
-    #             heigth_box = heigth_box + 20
-    #             name = "%d_%d - " % (x, y)
-    #             x = position_x + position_y
-    #             y = position_y + position_x
-    #             self.createCheckboxes(name, x, y, with_box, heigth_box)
-    #             print(name, x, y)
-    #             heigth_checkbox = 20
-    #         with_checkbox = 20
-                
 
     def createCheckboxes(self, name, alias, position_x, position_y, with_box, heigth_box):
         
@@ -76,4 +69,11 @@ class FibraHogar(QDialog):
         self.checkBox.setObjectName(alias)
         self.checkBox.setText(name)
 
+    def clearFibra(self):
+        product_id = 5
+        type_product = 7
+        query = self.db.getProductsByIdAndTypeProduct(product_id, type_product)
+        for i in range(0, query.rowCount()):
+            alias = query.record(i).value("alias")
+            self.+alias+.setChecked(False)
 
