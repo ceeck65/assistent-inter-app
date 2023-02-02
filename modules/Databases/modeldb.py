@@ -61,5 +61,7 @@ class modelDb():
             total_ves = float(price_ves)
         return total_ves
     
-    # def closeConecction(self):
-    #     self.db.closeConecction()
+    def getProductsByIdAndTypeProduct(self, product_id, type_product):
+        sql = "SELECT * FROM plans_packages where product_id ='%d' and type_product_id ='%d';" % (product_id, type_product)
+        query = self.getData(sql)
+        return query

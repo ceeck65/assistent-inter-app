@@ -39,23 +39,31 @@ class Templates(QDialog):
         combo_type_template.setModelColumn(1)
         
     def saveTemplate(self):
-        template_name = self.ui.template_name.text()
-        plans_package_name = self.ui.plans_package.currentText()
-        plans_package_id =  self.getPlanIdByName(plans_package_name)
-        type_template_id = self.ui.type_template.currentIndex() + 1
-        template = self.ui.template_txt.toPlainText()
-        temp = template_name.lower()
-        alias =  temp.replace("/", "_")
-        alias =  alias.replace(" ", "_")
-        print(template_name, template, type_template_id, alias)
-        sql = "INSERT INTO templates (name, template, type_template_id, alias) VALUES (?, ?, ?, ?);"
-        print(sql)
-        qry = self.db.insert(sql, [template_name, template, type_template_id, alias])
-        template_id = qry[1]
-        sql_ = "INSERT INTO template_has_plans_package (alias, template_id, plans_package_id) VALUES (?, ?, ?);"
-        qry = self.db.insert(sql_, [alias, template_id, plans_package_id])
-        self.tableTemplates()
-        self.clearTemplates()
+        try:
+            template_name = self.ui.template_name.text()
+            plans_package_name = self.ui.plans_package.currentText()
+            plans_package_id =  self.getPlanIdByName(plans_package_name)
+            type_template_id = self.ui.type_template.currentIndex() + 1
+            template = self.ui.template_txt.toPlainText()
+            sql_product = "SELECT * FROM plans_packages where id= %d" % plans_package_id
+            product = self.db.getData(sql_product)
+            alias = product.record(0).value("alias")
+            print(alias)
+            if alias == None:
+                alias = template_name
+                temp = template_name.lower()
+                alias =  temp.replace("/", "_")
+                alias =  alias.replace(" ", "_")
+            print(template_name, template, type_template_id, alias)
+            sql = "INSERT INTO templates (name, template, type_template_id, alias) VALUES (?, ?, ?, ?);"
+            qry = self.db.insert(sql, [template_name, template, type_template_id, alias])
+            template_id = qry[1]
+            sql_ = "INSERT INTO template_has_plans_package (alias, template_id, plans_package_id) VALUES (?, ?, ?);"
+            qry = self.db.insert(sql_, [alias, template_id, plans_package_id])
+            self.tableTemplates()
+            self.clearTemplates()
+        except:
+            print("Error saving Template")
 
     def clearTemplates(self):
         self.ui.template_name.clear()
