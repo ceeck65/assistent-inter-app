@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QDialog
 from modules.Hfc.hfc_ui import Ui_Dialog
 # from data import getDolar
 from modules.Data.templates import getTemplate, getLabel
-from modules.Data.data import getPricesByProducts
+
 
 
 class Hfc(QDialog):
@@ -36,7 +36,6 @@ class Hfc(QDialog):
          self.ui.service_hfc.setText("")
          self.ui.combo_cm_mta.activated.connect(self.changeMtaModen)
 
-         self.ui.btn_ticket_hfc_sale.clicked.connect(self.testDatabase)
                 
 	def disableRf(self, state):
          if state == QtCore.Qt.Checked:
@@ -223,7 +222,7 @@ class Hfc(QDialog):
          self.ui.combo_plan_internet.setCurrentIndex(0)
          self.ui.widget_2.setStyleSheet("background-color: rgb(235, 235, 235);")
 
-	def testDatabase(self):
-         query = getPricesByProducts("dth")
-         print(query.value(0))
-         pass
+	# def testDatabase(self):
+    #      query = getPricesByProducts("dth")
+    #      print(query.value(0))
+    #      pass

@@ -59,5 +59,8 @@
                 "service": "Muy bien, verificando los valores de su módem a nivel de sistema posee valores alterados el cual no permite navegar, lo mejor en este caso es que generemos una orden de servicio para informar al departamento técnico de su ciudad y traten de verificar cual es el origen de su falla. <br /><br /> ¿Está de acuerdo con agendar la visita técnica?."
             }
         ]
+    },
+    "hfc_sales": {
+
     }
 }

@@ -136,7 +136,7 @@
     </property>
     <addaction name="actionSettingsDolar"/>
     <addaction name="actionConfiguraci_n_Precios"/>
-    <addaction name="actionConfiguraci_n_Plantillas"/>
+    <addaction name="action_Templates"/>
     <addaction name="actionProductos"/>
    </widget>
    <widget class="QMenu" name="menuAyuda_2">
@@ -240,7 +240,7 @@
      <normaloff>:/images/images/icons/satelital.png</normaloff>:/images/images/icons/satelital.png</iconset>
    </property>
    <property name="text">
-    <string>Televisión Satalital DTH</string>
+    <string>Televisión Satelital DTH</string>
    </property>
    <property name="font">
     <font>
@@ -306,7 +306,7 @@
     <string>Precios</string>
    </property>
   </action>
-  <action name="actionConfiguraci_n_Plantillas">
+  <action name="action_Templates">
    <property name="icon">
     <iconset resource="../../images.qrc">
      <normaloff>:/images/images/icons/content.png</normaloff>:/images/images/icons/content.png</iconset>

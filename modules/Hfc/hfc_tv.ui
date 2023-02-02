@@ -18,7 +18,7 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>1332</width>
+     <width>1329</width>
      <height>651</height>
     </rect>
    </property>
@@ -138,7 +138,11 @@
            </spacer>
           </item>
           <item>
-           <widget class="QSpinBox" name="hfc_tv_aditional_cable_qty"/>
+           <widget class="QSpinBox" name="hfc_tv_aditional_cable_qty">
+            <property name="minimum">
+             <number>1</number>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -163,7 +167,7 @@
      <property name="title">
       <string>Servicios Premium TV Cable</string>
      </property>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -279,24 +283,6 @@
       </layout>
      </widget>
     </widget>
-    <widget class="QLabel" name="lblPriceReferentialDolarDTH">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>20</y>
-       <width>671</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>TextLabel</string>
-     </property>
-    </widget>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="geometry">
       <rect>
@@ -341,6 +327,9 @@
           </item>
           <item>
            <widget class="QSpinBox" name="hfc_tv_deco_digital_qyt">
+            <property name="minimum">
+             <number>1</number>
+            </property>
             <property name="value">
              <number>1</number>
             </property>
@@ -373,7 +362,11 @@
          </spacer>
         </item>
         <item>
-         <widget class="QSpinBox" name="hfc_tv_deco_analogy_qty"/>
+         <widget class="QSpinBox" name="hfc_tv_deco_analogy_qty">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -382,10 +375,10 @@
     <widget class="QLabel" name="lbl_total_dth">
      <property name="geometry">
       <rect>
-       <x>380</x>
-       <y>20</y>
-       <width>201</width>
-       <height>20</height>
+       <x>330</x>
+       <y>10</y>
+       <width>471</width>
+       <height>41</height>
       </rect>
      </property>
      <property name="font">
@@ -449,36 +442,6 @@
       <string>Ticket Abonado</string>
      </property>
     </widget>
-    <widget class="QPlainTextEdit" name="ticket_ab_hfc_tv">
-     <property name="geometry">
-      <rect>
-       <x>810</x>
-       <y>60</y>
-       <width>450</width>
-       <height>160</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-    </widget>
-    <widget class="QPlainTextEdit" name="ticket_k2b_hfc_tv">
-     <property name="geometry">
-      <rect>
-       <x>810</x>
-       <y>270</y>
-       <width>450</width>
-       <height>160</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_7">
      <property name="geometry">
       <rect>
@@ -495,6 +458,139 @@
      </property>
      <property name="text">
       <string>Ticket K2B</string>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_8">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>420</y>
+       <width>561</width>
+       <height>141</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Planes de internet y Telefonía</string>
+     </property>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>320</x>
+        <y>80</y>
+        <width>221</width>
+        <height>46</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_6">
+       <item>
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Plan de Telefonía</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox_2">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>200</width>
+           <height>500</height>
+          </size>
+         </property>
+         <item>
+          <property name="text">
+           <string>Seleccione</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QCheckBox" name="is_internet_hfc">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>211</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>¿Posee Plan de Internet?</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_2">
+      <property name="geometry">
+       <rect>
+        <x>320</x>
+        <y>40</y>
+        <width>211</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>¿Posee Plan de Telefonía?</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>11</x>
+        <y>81</y>
+        <width>281</width>
+        <height>46</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Plan de internet</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="combo_internet_hfc">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>300</width>
+           <height>500</height>
+          </size>
+         </property>
+         <item>
+          <property name="text">
+           <string>Seleccione</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QTextEdit" name="ticket_ab_hfc_tv">
+     <property name="geometry">
+      <rect>
+       <x>810</x>
+       <y>60</y>
+       <width>450</width>
+       <height>160</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="ticket_k2b_hfc_tv">
+     <property name="geometry">
+      <rect>
+       <x>810</x>
+       <y>270</y>
+       <width>450</width>
+       <height>160</height>
+      </rect>
      </property>
     </widget>
    </widget>

@@ -4,7 +4,7 @@ Created on Sun Jan 22 02:42:38 2023
 
 @author: alesp
 """
-import sys 
+
 from PyQt5.QtWidgets import (
     QDialog,
 )

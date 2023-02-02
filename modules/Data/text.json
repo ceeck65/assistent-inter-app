@@ -2,8 +2,8 @@
 	"dth": {
 		"STB": "// STB: ",
 		"CONTACT_SERVICE": ", se indica contactar personal técnico.-",
-		"SEND_COMAND": ", Se realiza el envio de comandos: ",
-		"NOT_SEND_COMAND": ", No se realiza el envio de comandos",
+		"SEND_COMAND": ", Se realiza el envío de comandos: ",
+		"NOT_SEND_COMAND": ", No se realiza el envío de comandos",
 		"INSUCCESSFULY_SEND_COMAND": ", Comando S/E",
 		"RESET_INSUCCESSFULY": ", reset s/e,",
 		"RESET_SUCESSFUL": ", reset c/e,",
@@ -28,5 +28,55 @@
 		"CALL_BEFORE": ", favor agilizar, llamar antes.-",
 		"TV_OK": ", TV OK",
 		"TV_FAILURE": ", TV FALLA"
+	},
+	"hfc_tv_sales_ab": {
+		"PREFIX": "Muy bien, usted posee",
+		"BASIC_CABLE": " El Paquete Básico de televisión por cable el cual tiene un costo de Bs. %.2f (Sujeto a cambio tasa BCV)",
+		"FAMILY_CABLE": " + Canales Adicionales Cable Familiar el cual tiene un costo de Bs. %.2f (Sujeto a cambio tasa BCV)",
+		"ADITIONAL_CABLE": " + %d tomas adicionales el cual tiene un costo de Bs. %.2f",
+		"BYM": " + Canal ByM Sports el cual tiene un costo de Bs. %.2f (Sujeto a cambio tasa BCV)",
+		"DSPORTS": " + D Sports el cual tiene un costo de Bs. %.2f (Sujeto a cambio tasa BCV)",
+		"INTERNATIONAL": " + Paquete Internacional Cable el cual tiene un costo de Bs. %.2f (Sujeto a cambio tasa BCV)",
+		"HOT_GO": " + Hot Pack Go el cual tiene un costo de Bs. %.2f (Sujeto a cambio tasa BCV)",
+		"HBO": " + Paquete HBO el cual tiene un costo de Bs. %.2f (Sujeto a cambio tasa BCV)",
+		"GOLDEN": " + Golden Premier el cual tiene un costo de Bs. %.2f (Sujeto a cambio tasa BCV)",
+		"FSN": " + Canal FSN el cual tiene un costo de Bs. %.2f (Sujeto a cambio tasa BCV)",
+		"PLAYBOY": " + Play Boy el cual tiene un costo de Bs. %.2f (Sujeto a cambio tasa BCV)",
+		"VENUS": " + Venus el cual tiene un costo de Bs. %.2f (Sujeto a cambio tasa BCV)",
+		"TV_DIGITAL": " + Servicio Digital el cual tiene un costo de Bs. %.2f (Sujeto a cambio tasa BCV)",
+		"GOLD": " + Gold cual tiene un costo de Bs. %.2f (Sujeto a cambio tasa BCV)",
+		"TOTAL_VES": ", para un total de Bs %.2f. Todos nuestros precios incluyen IVA.",
+		"PLAN_INTERNET": " + %s cual tiene un costo de Bs. %.2f (Sujeto a cambio tasa BCV)",
+		"ADITIONAL_CAJA": " + %d Alquiler Caja Digital el cual tiene un costo de Bs. %.2f",
+		"ADITIONAL_DECO": " + %d Alquiler Deco Analogico el cual tiene un costo de Bs. %.2f"
+	},
+	"hfc_tv_sales_kb2": {
+		"PREFIX": "// Ab solicita información y costos de plan contratado, se indica posee",
+		"BASIC_CABLE": " Paquete Básico Cable Bs. %.2f",
+		"FAMILY_CABLE": " + Canales Adicionales Cable Familiar Bs. %.2f",
+		"ADITIONAL_CABLE": " + %d tomas adicional Bs. %.2f",
+		"BYM": " + Canal ByM Sports Bs. %.2f",
+		"DSPORTS": " + D Sports Bs. %.2f",
+		"INTERNATIONAL": " + Paquete Internacional Bs. %.2f",
+		"HOT_GO": " + Hot Pack Go Bs. %.2f",
+		"HBO": " + Paquete HBO Bs. %.2f",
+		"GOLDEN": " + Golden Premier Bs. %.2f",
+		"FSN": " + Canal FSN Bs.%.2f",
+		"PLAYBOY": " + Play Boy Bs. %.2f",
+		"VENUS": " + Venus Bs. %.2f",
+		"TV_DIGITAL": " + Servicio Digital Bs. %.2f",
+		"GOLD": " + Gold Bs. %.2f",
+		"TOTAL_VES": ", total Bs %.2f, ab conforme, se finaliza.-",
+		"PLAN_INTERNET": " + %s Bs. %.2f",
+		"ADITIONAL_CAJA": " + %d Alquiler Caja Digital Bs. %.2f",
+		"ADITIONAL_DECO": " + %d Alquiler Deco Analogico Bs. %.2f"
+	},
+	"dth_sales_ab": {
+		"PREFIX": "Muy bien, usted posee",
+		"BASIC_SATELITAL": " El Paquete Básico de televisión por cable el cual tiene un costo de Bs. %.2f (Sujeto a cambio tasa BCV)"
+	},
+	"dth_sales_kb2": {
+		"PREFIX": "// Ab solicita información y costos de plan contratado, se indica posee",
+		"BASIC_SATELITAL": " El Paquete Básico de televisión por cable el cual tiene un costo de Bs. %.2f (Sujeto a cambio tasa BCV)"
 	}
 }

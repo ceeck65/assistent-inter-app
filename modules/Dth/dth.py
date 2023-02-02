@@ -5,176 +5,105 @@ from PyQt5.QtWidgets import QDialog, QMessageBox
 from modules.Dth.dth_ui import Ui_Dialog
 from modules.Data.data import getDolar
 from modules.Data.templates import getTemplate, getLabel
-
+from modules.Databases.modeldb import modelDb
 
 
 class Dth(QDialog):
 	def __init__(self):
-         super(Dth, self).__init__()
-         self.ui = Ui_Dialog()
-         self.ui.setupUi(self)
-         self.ui.btn_ticket_dth.clicked.connect(self.generateTicketsDTH)
-         self.ui.btn_ticket_dth_support.clicked.connect(self.generateTicketSupport)
-         self.ui.btn_clear_dth.clicked.connect(self.clearDHT)
-         get_dolar = getDolar()
-         self.ui.lblPriceReferentialDolarDTH.setText("Precio del dolar del día %s, Bs. %.2f" % (_date, get_dolar))
+		super(Dth, self).__init__()
+		self.db = modelDb()
+		self.ui = Ui_Dialog()
+		self.ui.setupUi(self)
+		self.ui.btn_ticket_dth.clicked.connect(self.generateTicketsDTH)
+		self.ui.btn_ticket_dth_support.clicked.connect(self.generateTicketSupport)
+		self.ui.btn_clear_dth.clicked.connect(self.clearDHT)
+		get_dolar = getDolar()
+		self.ui.lblPriceReferentialDolarDTH.setText("Precio del dolar del día %s, Bs. %.2f" % (_date, get_dolar))
+		self.ui.combo_dth_failure.activated.connect(self.changeFailure)
+		self.decoders = []
+		self.ui.btn_add_decoder_dth.clicked.connect(self.listDecoders)
+		self.ui.btn_remove_decoder_dth.clicked.connect(self.removeDecoder)
+		self.ui.txt_dth_decoder.returnPressed.connect(self.ui.btn_add_decoder_dth.click)
+		self.fillComboPlans()
 
-         self.ui.combo_dth_failure.activated.connect(self.changeFailure)
-         self.decoders = []
-         self.ui.btn_add_decoder_dth.clicked.connect(self.listDecoders)
-         self.ui.btn_remove_decoder_dth.clicked.connect(self.removeDecoder)
-         self.ui.txt_dth_decoder.returnPressed.connect(self.ui.btn_add_decoder_dth.click)
-         
+	def fillComboPlans(self):
+		sql= "SELECT id, name FROM plans_packages WHERE product_id = 1 AND type_product_id = 1;"
+		model = self.db.getData(sql)
+		combo = self.ui.plans_dth
+		combo.setModel(model)
+		combo.setModelColumn(1)
+		
+
+	def getPlansByName(self, name):
+		sql = "SELECT * from plans_packages where name LIKE '%s'" % name
+		query = self.db.getSingleData(sql)
+		price_ves = query.record(0).value("price_ves")
+		price_usd = query.record(0).value("price_usd")
+		alias = query.record(0).value("alias")
+		id = query.record(0).value("id")
+		dict = {"id": id, "price_ves": price_ves, "price_usd": price_usd, "alias": alias}
+		return dict
+
+	def getPlansByAlias(self, alias):
+		sql = "SELECT * from plans_packages where alias = '%s'" % alias
+		query = self.db.getSingleData(sql)
+		price_ves = query.record(0).value("price_ves")
+		price_usd = query.record(0).value("price_usd")
+		alias = query.record(0).value("alias")
+		id = query.record(0).value("id")
+		dict = {"id": id, "price_ves": price_ves, "price_usd": price_usd, "alias": alias}
+		return dict
+	
+	def getTemplateByAlias(self, alias):
+		sql = "SELECT  template, alias FROM templates where alias = '%s';" % alias
+		query = self.db.getSingleData(sql)
+		template = query.record(0).value("template")
+		return template
+
 
 	def generateTicketsDTH(self):
-         get_dolar = getDolar()
-         self.ui.lblPriceReferentialDolarDTH.setText("Precio del dolar del día %s, Bs. %.2f" % (_date, get_dolar))
-         self.ui.txtticket_ab_dth.clear()
-         self.ui.txtticket_k2b_dth.clear()
-         _plan_satelital, _optimo_hd_inter = 12.75, 8
-         _optimo_full_hd_inter = 16
-         _optimo_hd_movistar = 8
-         _optimo_full_hd_movistar = 10
-         total_dth = 0
-        # Variables paquetes
-         _bym_inter,_dsport_inter,_hbo_inter, _venus_inter, _goldem_inter = 85.55, 5, 92.56, 78.32, 56.96
-         _bym_movistar,_dsport_movistar,_hbo_movistar, _venus_movistar, _goldem_movistar = 5, 5, 7, 7, 7
-         _deco_dth_inter, _deco_dht_movistar = 34.22, _dolar
-         _prefix = "Usted posee "
-         _txt_label_ab_dth = ""
-         _txt_label_k2b_dth = ""
+		try: 
+			labels = getLabel('dth_sales_ab')
+			labels_k2b = getLabel('dth_sales_kb2')
+			self.ui.txtticket_ab_dth.clear()
+			self.ui.txtticket_k2b_dth.clear()
+			get_dolar = getDolar()
+			self.ui.lblPriceReferentialDolarDTH.setText("Precio del dolar del día %s, Bs. %.2f" % (_date, get_dolar))
+			combo_plans = self.ui.plans_dth.currentText()
+			plans_ = self.getPlansByName(combo_plans)
+			total = 0
+			total_usd = 0
+			satelital_dth = ""
 
-         if _dolar == 0:
-            QMessageBox.about(self, "Dólar requerido", "Por favor configure el valor de la divisa BCV")
-            self.clearDHT()
-            return False
-
-         if self.ui.basico_satelital_dth.isChecked():
-            _txt_label_ab_dth = _prefix + "el plan básico satelital el cual tiene un costo de Bs %.2f" % _plan_satelital
-            _txt_label_k2b_dth = "plan básico satelital Bs %.2f" % _plan_satelital
-            total_dth = total_dth + _plan_satelital
-         else:
-            _txt_label_ab_dth = _prefix
-            total_dth = 0
-
-         if self.ui.optimo_hd_inter.isChecked():
-            optimo_hd_inter = _optimo_hd_inter * _dolar
-            _txt_label_ab_dth = _txt_label_ab_dth + " + Plan Óptimo HD el cual tiene un costo de Bs %.2f (sujeto a cambio por tasa BCV)" %  (optimo_hd_inter)
-            _txt_label_k2b_dth = _txt_label_k2b_dth + " + plan optimo hd Bs %.2f" %  (optimo_hd_inter)
-            total_dth = total_dth + optimo_hd_inter
+			if self.ui.basico_satelital_dth.isChecked():
+				satelital_ = self.getPlansByAlias("dth_basico_satelital")
+				plan_label = self.getTemplateByAlias(satelital_["alias"])
+				price_ves = self.db.getPriceVES(satelital_['price_ves'], satelital_['price_usd'])
+				price_usd  = self.db.getPriceUSD(satelital_['price_ves'], satelital_['price_usd'])
+				satelital_dth = plan_label % price_ves
+				total = total + price_ves
+				total_usd = total_usd + price_usd
 
 
-         if self.ui.optimo_full_hd_inter.isChecked():
-            optimo_full_hd_inter = _optimo_full_hd_inter * _dolar
-            _txt_label_ab_dth = _txt_label_ab_dth + " + Plan Óptimo Full HD el cual tiene un costo de Bs %.2f (sujeto a cambio por tasa BCV)" %  (optimo_full_hd_inter)
-            _txt_label_k2b_dth = _txt_label_k2b_dth + " + plan Óptimo Full HD Bs %.2f" %  (optimo_full_hd_inter)
-            total_dth = total_dth + optimo_full_hd_inter
+			plan_label = self.getTemplateByAlias(plans_["alias"])
+			price_ves = self.db.getPriceVES(plans_['price_ves'], plans_['price_usd'])
+			price_usd  = self.db.getPriceUSD(plans_['price_ves'], plans_['price_usd'])
+			plans_package = plan_label % price_ves
+			total = total + price_ves
+			total_usd = total_usd + price_usd
 
+			plans_package_k2b = plans_package.replace(" el cual tiene un costo de", "")
+			plans_package_k2b = plans_package_k2b.replace(" (Sujeto a cambio tasa BCV)", "")
 
-         if self.ui.optimo_hd_movistar.isChecked():
-            optimo_hd_movistar = _optimo_hd_movistar * _dolar
-            _txt_label_ab_dth = _txt_label_ab_dth + " + Plan Óptimo HD el cual tiene un costo de Bs %.2f (sujeto a cambio por tasa BCV)" %  (optimo_hd_movistar)
-            _txt_label_k2b_dth = _txt_label_k2b_dth + " + plan Óptimo HD Bs %.2f" %  (optimo_hd_movistar)
-            total_dth = total_dth + optimo_hd_movistar
+			text_ab = "%s%s%s" % (labels["PREFIX"], satelital_dth, plans_package)
+			text_k2b = "%s%s%s"  % (labels_k2b["PREFIX"], satelital_dth, plans_package_k2b)
 
-
-         if self.ui.optimo_full_hd_movistar.isChecked():
-            optimo_full_hd_movistar = _optimo_full_hd_movistar * _dolar
-            _txt_label_ab_dth = _txt_label_ab_dth + " + Plan Óptimo Full HD el cual tiene un costo de Bs %.2f (sujeto a cambio por tasa BCV)" %  (optimo_full_hd_movistar)
-            _txt_label_k2b_dth = _txt_label_k2b_dth + " + plan Óptimo Full HD Bs %.2f" %  (optimo_full_hd_movistar)
-            total_dth = total_dth + optimo_full_hd_movistar
-
-        #PAQUETES PREMIUM INTER
-
-         if self.ui.optimo_hd_inter.isChecked() or self.ui.optimo_full_hd_inter.isChecked():
-            if self.ui.bym_dth.isChecked():
-                bym_dth_inter = _bym_inter
-                _txt_label_ab_dth = _txt_label_ab_dth + " + Canal ByM Sports el cual tiene un costo de Bs %.2f (sujeto a cambio por tasa BCV)" %  (bym_dth_inter)
-                _txt_label_k2b_dth = _txt_label_k2b_dth + " + ByM Sports Bs %.2f" %  (bym_dth_inter)
-                total_dth = total_dth + bym_dth_inter
-
-            if  self.ui.hbo_dth.isChecked():
-                hbo_dth_inter = _hbo_inter
-                _txt_label_ab_dth = _txt_label_ab_dth + " + Paquete HBO el cual tiene un costo de Bs %.2f (sujeto a cambio por tasa BCV)" %  (hbo_dth_inter)
-                _txt_label_k2b_dth = _txt_label_k2b_dth + " + HBO Bs %.2f" %  (hbo_dth_inter)
-                total_dth = total_dth + hbo_dth_inter
-
-            if  self.ui.dsports_dth.isChecked():
-                dsports_dth_inter = _dsport_inter * _dolar
-                _txt_label_ab_dth = _txt_label_ab_dth + " + Paquete D Sports el cual tiene un costo de Bs %.2f (sujeto a cambio por tasa BCV)" %  (dsports_dth_inter)
-                _txt_label_k2b_dth = _txt_label_k2b_dth + " + DSports Bs %.2f" %  (dsports_dth_inter)
-                total_dth = total_dth + dsports_dth_inter
-
-            if  self.ui.venus_dth.isChecked():
-                venus_dth_inter = _venus_inter
-                _txt_label_ab_dth = _txt_label_ab_dth + " + Paquete Adultos el cual tiene un costo de Bs %.2f (sujeto a cambio por tasa BCV)" %  (venus_dth_inter)
-                _txt_label_k2b_dth = _txt_label_k2b_dth + " + Venus Bs %.2f" %  (venus_dth_inter)
-                total_dth = total_dth + venus_dth_inter
-
-            if  self.ui.goldem_dth.isChecked():
-                goldem_dth_inter = _goldem_inter
-                _txt_label_ab_dth = _txt_label_ab_dth + " + Paquete Goldem Premier el cual tiene un costo de Bs %.2f (sujeto a cambio por tasa BCV)" %  (goldem_dth_inter)
-                _txt_label_k2b_dth = _txt_label_k2b_dth + " + Goldem Premier Bs %.2f" %  (goldem_dth_inter)
-                total_dth = total_dth + goldem_dth_inter
-
-
-            if  self.ui.deco_dth.isChecked():
-                qty_deco = self.ui.deco_adicional_dth.value()
-                deco_dth_inter = _deco_dth_inter * qty_deco
-                _txt_label_ab_dth = _txt_label_ab_dth + " + %d toma adicional tiene un costo de Bs %.2f (sujeto a cambio por tasa BCV)" %  (qty_deco, deco_dth_inter)
-                _txt_label_k2b_dth = _txt_label_k2b_dth + " + %d deco Bs %.2f" %  (qty_deco, deco_dth_inter)
-                total_dth = total_dth + deco_dth_inter
-
-        #PAQUETES PREMIUM MOVISTAR
-
-         if self.ui.optimo_hd_movistar.isChecked() or self.ui.optimo_full_hd_movistar.isChecked():
-            if self.ui.bym_dth.isChecked():
-                bym_dth_movistar = _bym_movistar * _dolar
-                _txt_label_ab_dth = _txt_label_ab_dth + " + Canal ByM Sports el cual tiene un costo de Bs %.2f (sujeto a cambio por tasa BCV)" %  (bym_dth_movistar)
-                _txt_label_k2b_dth = _txt_label_k2b_dth + " + ByM Sports Bs %.2f" %  (bym_dth_movistar)
-                total_dth = total_dth + bym_dth_movistar
-
-            if  self.ui.hbo_dth.isChecked():
-                hbo_dth_movistar = _hbo_movistar * _dolar
-                _txt_label_ab_dth = _txt_label_ab_dth + " + Paquete HBO el cual tiene un costo de Bs %.2f (sujeto a cambio por tasa BCV)" %  (hbo_dth_movistar)
-                _txt_label_k2b_dth = _txt_label_k2b_dth + " + HBO Bs %.2f" %  (hbo_dth_movistar)
-                total_dth = total_dth + hbo_dth_movistar
-
-            if  self.ui.dsports_dth.isChecked():
-                dsports_dth_movistar = _dsport_movistar * _dolar
-                _txt_label_ab_dth = _txt_label_ab_dth + " + Paquete D Sports el cual tiene un costo de Bs %.2f (sujeto a cambio por tasa BCV)" %  (dsports_dth_movistar)
-                _txt_label_k2b_dth = _txt_label_k2b_dth + " + DSports Bs %.2f" %  (dsports_dth_movistar)
-                total_dth = total_dth + dsports_dth_movistar
-
-            if  self.ui.venus_dth.isChecked():
-                venus_dth_movistar = _venus_movistar * _dolar
-                _txt_label_ab_dth = _txt_label_ab_dth + " + Paquete Adultos el cual tiene un costo de Bs %.2f (sujeto a cambio por tasa BCV)" %  (venus_dth_movistar)
-                _txt_label_k2b_dth = _txt_label_k2b_dth + " + Venus Bs %.2f" %  (venus_dth_movistar)
-                total_dth = total_dth + venus_dth_movistar
-
-            if  self.ui.goldem_dth.isChecked():
-                goldem_dth_movistar = _goldem_movistar * _dolar
-                _txt_label_ab_dth = _txt_label_ab_dth + " + Paquete Goldem Premier el cual tiene un costo de Bs %.2f (sujeto a cambio por tasa BCV)" %  (goldem_dth_movistar)
-                _txt_label_k2b_dth = _txt_label_k2b_dth + " + Golden Premier Bs %.2f" %  (goldem_dth_movistar)
-                total_dth = total_dth + goldem_dth_movistar
-
-            if  self.ui.deco_dth.isChecked():
-                qty_deco = self.ui.deco_adicional_dth.value()
-                deco_dht_movistar = _deco_dht_movistar * qty_deco
-                if qty_deco == 1:
-                    adicional = "toma adicional tiene"
-                else:
-                    adicional = "tomas adicionales tienen"
-
-                _txt_label_ab_dth = _txt_label_ab_dth + " + %d %s un costo de Bs %.2f (sujeto a cambio por tasa BCV)" %  (qty_deco, adicional, deco_dht_movistar)
-                _txt_label_k2b_dth = _txt_label_k2b_dth + " + %d deco Bs %.2f" %  (qty_deco, deco_dht_movistar)
-                total_dth = total_dth + deco_dht_movistar
-
-         total_dolar = _dolar if _dolar == 0 else total_dth / _dolar
-
-         self.ui.txtticket_ab_dth.insertPlainText(_txt_label_ab_dth + ", para un total de Bs %.2f.Todos nuestros precios incluyen IVA." % total_dth )
-         self.ui.txtticket_k2b_dth.insertPlainText("// ab solicita información y costos de plan contratado, se indica posee " +_txt_label_k2b_dth+ ", ab conforme, se finaliza.-")
-         self.ui.lbl_total_dth.setText("Total Bs %.2f / $ %.2f" % (total_dth, total_dolar))
+			self.ui.txtticket_ab_dth.insertPlainText(text_ab)
+			self.ui.txtticket_k2b_dth.insertPlainText(text_k2b)
+			self.ui.lbl_total_dth.setText("Total Bs %.2f / $ %.2f" % (total, total_usd))
+		except:
+			print("An exception occurred")
+ 
 
 	def clearDHT(self):
          self.ui.basico_satelital_dth.setChecked(True)
@@ -194,55 +123,51 @@ class Dth(QDialog):
          self.ui.lbl_total_dth.setText("Total Bs %.2f / $ %.2f" % (0, 0))
 
 	def generateTicketSupport(self):
-         self.ui.txt_ticket_k2b_dth_support.clear()
-         labels = getLabel('dth')
-         txt_k2b = ""
-         stb = self.ui.txt_dth_decoder.text()
-         failure = self.ui.combo_dth_failure.currentText()
-         comand_action = self.ui.combo_dth_command.currentText()
-         support = ""
-         connections_ok = ""
-         # manupulate_ant = ""
-         # refresh = ""
-         # coomand_not_send = ""
-         command = ""
-         clear_weather = ""
+		self.ui.txt_ticket_k2b_dth_support.clear()
+		labels = getLabel('dth')
+		txt_k2b = ""
+		stb = self.ui.txt_dth_decoder.text()
+		failure = self.ui.combo_dth_failure.currentText()
+		comand_action = self.ui.combo_dth_command.currentText()
+		support = ""
+		connections_ok = ""
+		 # manupulate_ant = ""
+		 # refresh = ""
+		 # coomand_not_send = ""
+		command = ""
+		clear_weather = ""
          
-         if self.ui.dth_list_decoder.count() > 0:
-             decoders = ""
-             for index in range(self.ui.dth_list_decoder.count()):
-                 deco = self.ui.dth_list_decoder.item(index)
-                 decoders = decoders + deco.text() + "/"    
-             stb_ = labels["STB"] + decoders
-             stb = stb_.replace("/,", ",")
-                     
-         if not self.ui.dth_coomand_not_send.isChecked():
-            if self.ui.dth_refresh.isChecked():
-                command = "%s %s %s + %s"  % (txt_k2b, labels["SEND_COMAND"], comand_action.upper(), labels["REFRESH"])
-            else:
-                if self.ui.combo_dth_failure.currentIndex() != 0:
-                    command = txt_k2b + labels["SEND_COMAND"] + comand_action.upper() + ", "
-         else:
-            command = txt_k2b + labels["NOT_SEND_COMAND"]
+		if self.ui.dth_list_decoder.count() > 0:
+			decoders = ""
+			for index in range(self.ui.dth_list_decoder.count()):
+				deco = self.ui.dth_list_decoder.item(index)
+				decoders = decoders + deco.text() + "/"    
+			stb_ = labels["STB"] + decoders
+			stb = stb_.replace("/,", ",")
 
-         if self.ui.dth_successful_support.isChecked():
-            support = txt_k2b + labels["SUPPORT_SUCESSFUL"]
+		if not self.ui.dth_coomand_not_send.isChecked():
+			if self.ui.dth_refresh.isChecked():
+				command = "%s %s %s + %s"  % (txt_k2b, labels["SEND_COMAND"], comand_action.upper(), labels["REFRESH"])
+			else:
+				if self.ui.combo_dth_failure.currentIndex() != 0:
+					command = txt_k2b + labels["SEND_COMAND"] + comand_action.upper() + ", "
+		else:
+			command = txt_k2b + labels["NOT_SEND_COMAND"]
 
-         if self.ui.dth_unsuccessful_support.isChecked():
-            support = txt_k2b + labels["CONTACT_SERVICE"]
-
-         if self.ui.dth_waiting_period.isChecked():
-            support = txt_k2b + labels["WAITING"]
-
-         if self.ui.dth_clear_weather.isChecked():
-            clear_weather = txt_k2b + labels["CLEAR_WEATHER"]
-
-         if self.ui.dth_connections_ok.isChecked():
-            connections_ok = txt_k2b + labels["CONNECTION_OK"] 
-         failure = ", " + failure.upper() 
-
-         txt_k2b = "%s%s%s%s%s%s" % (stb, failure, command, clear_weather, connections_ok, support)
-         self.ui.txt_ticket_k2b_dth_support.insertHtml(txt_k2b)
+		if self.ui.dth_successful_support.isChecked():
+			support = txt_k2b + labels["SUPPORT_SUCESSFUL"]	
+		if self.ui.dth_unsuccessful_support.isChecked():
+		    support = txt_k2b + labels["CONTACT_SERVICE"]		
+		if self.ui.dth_waiting_period.isChecked():
+			support = txt_k2b + labels["WAITING"]		
+		if self.ui.dth_clear_weather.isChecked():
+		    clear_weather = txt_k2b + labels["CLEAR_WEATHER"]		
+		if self.ui.dth_connections_ok.isChecked():
+			connections_ok = txt_k2b + labels["CONNECTION_OK"] 
+		failure = ", " + failure.upper()
+        
+		txt_k2b = "%s%s%s%s%s%s" % (stb, failure, command, clear_weather, connections_ok, support)
+		self.ui.txt_ticket_k2b_dth_support.insertHtml(txt_k2b)
     
 	def changeFailure(self, state):
          template = getTemplate("dth_support")
@@ -284,25 +209,18 @@ class Dth(QDialog):
              self.ui.text_commands_dth.insertHtml(template['comands'][2]["resend_key"])
              self.ui.txt_ticket_ab_dth_support.insertHtml(template['subscriber'][0]["send_comand"])
          if state == 13:
-             self.ui.text_motive_dth.insertHtml(template['motives'][2]["364_250"])
-             self.ui.text_commands_dth.insertHtml(template['comands'][6]["refresh"])
-             self.ui.txt_ticket_ab_dth_support.insertHtml(template['subscriber'][0]["send_comand"])
+            self.ui.text_motive_dth.insertHtml(template['motives'][2]["364_250"])
+            self.ui.text_commands_dth.insertHtml(template['comands'][6]["refresh"])
+            self.ui.txt_ticket_ab_dth_support.insertHtml(template['subscriber'][0]["send_comand"])
 
 	def listDecoders(self):
-         decoder = self.ui.txt_dth_decoder.text()
-         if decoder != "":
-             self.ui.dth_list_decoder.addItem(decoder)
-         self.ui.txt_dth_decoder.clear()
-    
-            
+		decoder = self.ui.txt_dth_decoder.text()
+		if decoder != "":
+		    self.ui.dth_list_decoder.addItem(decoder)
+		self.ui.txt_dth_decoder.clear()
+
 	def removeDecoder(self):
-         self.ui.dth_list_decoder.takeItem(self.ui.dth_list_decoder.currentRow())
-
-	def selectTemplate(self):
-         pass
-
-	def mi():
-         pass
+		self.ui.dth_list_decoder.takeItem(self.ui.dth_list_decoder.currentRow())
 
 
 
