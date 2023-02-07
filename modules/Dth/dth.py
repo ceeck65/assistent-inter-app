@@ -1,7 +1,13 @@
 
 
 from datetime import date
-from PyQt5.QtWidgets import QDialog, QMessageBox
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtWidgets import (
+    QDialog,
+    QCheckBox,
+    QMessageBox,
+    QSpinBox
+)
 from modules.Dth.dth_ui import Ui_Dialog
 from modules.Data.data import getDolar
 from modules.Data.templates import getTemplate, getLabel
@@ -9,6 +15,13 @@ from modules.Databases.modeldb import modelDb
 
 
 class Dth(QDialog):
+	global current_product_id
+	global current_premium
+	global current_aditionals
+
+	current_product_id = 1
+	current_premium = 11
+	current_aditionals = 3
 	def __init__(self):
 		super(Dth, self).__init__()
 		self.db = modelDb()
@@ -24,7 +37,15 @@ class Dth(QDialog):
 		self.ui.btn_add_decoder_dth.clicked.connect(self.listDecoders)
 		self.ui.btn_remove_decoder_dth.clicked.connect(self.removeDecoder)
 		self.ui.txt_dth_decoder.returnPressed.connect(self.ui.btn_add_decoder_dth.click)
+		self.current_product_id = current_product_id
+		self.current_premium = current_premium
+		self.current_aditionals = current_aditionals
 		self.fillComboPlans()
+		self.generatePremiumInter(self.current_product_id, self.current_premium)
+		self.generatePremiumMovistar(self.current_product_id, 10)
+		self.generateAditionales(self.current_product_id, self.current_aditionals)
+		self.ui.plans_dth.currentTextChanged.connect(self.changedPlans)
+		self.ui.groupBoxPremiumDTHMovistar.setVisible(False)
 
 	def fillComboPlans(self):
 		sql= "SELECT id, name FROM plans_packages WHERE product_id = 1 AND type_product_id = 1;"
@@ -33,7 +54,6 @@ class Dth(QDialog):
 		combo.setModel(model)
 		combo.setModelColumn(1)
 		
-
 	def getPlansByName(self, name):
 		sql = "SELECT * from plans_packages where name LIKE '%s'" % name
 		query = self.db.getSingleData(sql)
@@ -60,67 +80,189 @@ class Dth(QDialog):
 		template = query.record(0).value("template")
 		return template
 
-
 	def generateTicketsDTH(self):
-		try: 
-			labels = getLabel('dth_sales_ab')
-			labels_k2b = getLabel('dth_sales_kb2')
-			self.ui.txtticket_ab_dth.clear()
-			self.ui.txtticket_k2b_dth.clear()
-			get_dolar = getDolar()
-			self.ui.lblPriceReferentialDolarDTH.setText("Precio del dolar del día %s, Bs. %.2f" % (_date, get_dolar))
-			combo_plans = self.ui.plans_dth.currentText()
-			plans_ = self.getPlansByName(combo_plans)
-			total = 0
-			total_usd = 0
-			satelital_dth = ""
+		# try: 
+		print(self.current_product_id, self.current_premium)
+		labels = getLabel('dth_sales_ab')
+		labels_k2b = getLabel('dth_sales_kb2')
+		self.ui.txtticket_ab_dth.clear()
+		self.ui.txtticket_k2b_dth.clear()
+		get_dolar = getDolar()
+		self.ui.lblPriceReferentialDolarDTH.setText("Precio del dolar del día %s, Bs. %.2f" % (_date, get_dolar))
+		combo_plans = self.ui.plans_dth.currentText()
+		plans_ = self.getPlansByName(combo_plans)
+		premium = self.db.getProductsByIdAndTypeProduct(self.current_product_id, self.current_premium)
+		aditionals = self.db.getProductsByIdAndTypeProduct(self.current_product_id, self.current_aditionals)
+		total = 0
+		total_usd = 0
+		list_plans_tv = []
+		list_adiotionals = []
 
-			if self.ui.basico_satelital_dth.isChecked():
-				satelital_ = self.getPlansByAlias("dth_basico_satelital")
-				plan_label = self.getTemplateByAlias(satelital_["alias"])
-				price_ves = self.db.getPriceVES(satelital_['price_ves'], satelital_['price_usd'])
-				price_usd  = self.db.getPriceUSD(satelital_['price_ves'], satelital_['price_usd'])
-				satelital_dth = plan_label % price_ves
-				total = total + price_ves
-				total_usd = total_usd + price_usd
+		plan_label = self.getTemplateByAlias(plans_["alias"])
+		price_ves = self.db.getPriceVES(plans_['price_ves'], plans_['price_usd'])
+		price_usd  = self.db.getPriceUSD(plans_['price_ves'], plans_['price_usd'])
+		plans_package = plan_label % price_ves
+		total = total + price_ves
+		total_usd = total_usd + price_usd
 
 
-			plan_label = self.getTemplateByAlias(plans_["alias"])
-			price_ves = self.db.getPriceVES(plans_['price_ves'], plans_['price_usd'])
-			price_usd  = self.db.getPriceUSD(plans_['price_ves'], plans_['price_usd'])
-			plans_package = plan_label % price_ves
-			total = total + price_ves
-			total_usd = total_usd + price_usd
+		for i in range(0, premium.rowCount()):
+			alias = premium.record(i).value("alias")
+			checkbox = self.findChild(QCheckBox, alias)
+			if checkbox.isChecked():
+				prices = self.db.getPricePlansPackageByAlias(alias)
+				template = self.db.getTemplateByAlias(alias)
+				name_package = self.db.findPackageNameByAlias(alias)
+				price_ves = self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
+				price_usd = self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
+				if template == None:
+					self.templateUndefined("Plantilla %s no definida, por favor configure la plantilla." % name_package)
+					checkbox.setChecked(False)
+				else:
+					premium_tv_ = template % (price_ves)
+					total = total + price_ves
+					total_usd = total_usd + price_usd
+					list_plans_tv.append(premium_tv_)
 
-			plans_package_k2b = plans_package.replace(" el cual tiene un costo de", "")
-			plans_package_k2b = plans_package_k2b.replace(" (Sujeto a cambio tasa BCV)", "")
+		premium_tv =""
+		for item in list_plans_tv:
+			premium_tv += item
+	
 
-			text_ab = "%s%s%s" % (labels["PREFIX"], satelital_dth, plans_package)
-			text_k2b = "%s%s%s"  % (labels_k2b["PREFIX"], satelital_dth, plans_package_k2b)
+		for i in range(0, aditionals.rowCount()):
+			alias = aditionals.record(i).value("alias")
+			checkbox = self.findChild(QCheckBox, alias)
+			qty = self.findChild(QSpinBox, alias+"_qty")
+			if checkbox.isChecked():
+				prices = self.db.getPricePlansPackageByAlias(alias)
+				template = self.db.getTemplateByAlias(alias)
+				name_package = self.db.findPackageNameByAlias(alias)
+				price_ves = self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
+				price_usd = self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
+				if template == None:
+					self.templateUndefined("Plantilla %s no definida, por favor configure la plantilla." %  name_package)
+					checkbox.setChecked(False)
+				else:
+					qty_ = qty.value()
+					aditional_ = template % (qty_, price_ves)
+					total = total + (price_ves * qty_)
+					total_usd = total_usd + (price_usd * qty_)
+					list_adiotionals.append(aditional_)
 
-			self.ui.txtticket_ab_dth.insertPlainText(text_ab)
-			self.ui.txtticket_k2b_dth.insertPlainText(text_k2b)
-			self.ui.lbl_total_dth.setText("Total Bs %.2f / $ %.2f" % (total, total_usd))
-		except:
-			print("An exception occurred")
+		aditional=""
+		for item in list_adiotionals:
+			aditional+= item
+
+		if total > 0:
+			total_ves = labels["TOTAL"] % float(total)
+			total_ves_k2b = labels_k2b["TOTAL_VES"] % float(total)
+		else:
+			total_ves = ""
+			total_ves_k2b = ""
+
+
+		text_ab = "%s%s%s%s%s" % (labels["PREFIX"], plans_package, premium_tv,aditional, total_ves)
+		temp_ = "%s%s%s%s%s%s"  % (labels_k2b["PREFIX"], plans_package, premium_tv, aditional, total_ves_k2b, labels_k2b["END"])
+		temp_ = temp_.replace(" el cual tiene un costo de", "")
+		temp_ = temp_.replace(" todos nuestros precios incluyen IVA", "")
+		temp_ = temp_.replace("para un monto total de ", "")
+		text_k2b = temp_.replace("(Sujeto a cambio tasa BCV)", "")
+
+
+		self.ui.txtticket_ab_dth.insertPlainText(text_ab)
+		self.ui.txtticket_k2b_dth.insertPlainText(text_k2b)
+		self.ui.lbl_total_dth.setText("Total Bs %.2f / $ %.2f" % (total, total_usd))
+		# except Exception as e:
+		# 	print(e)
  
+	def generatePremiumInter(self, product_id, type_product):
+		query = self.db.getProductsByIdAndTypeProduct(product_id, type_product)
+		with_box = 280
+		heigth_box = 0
+		name = ""
+		position_x = 20
+		position_y = 0
+		for i in range(0, query.rowCount()):
+			position_y = position_y + 35
+			heigth_box = heigth_box + 55
+			name = query.record(i).value("name")
+			alias = query.record(i).value("alias")
+			self.createCheckboxesPremiumInter(name, alias, position_x, position_y, with_box, heigth_box)
+			
+	def generatePremiumMovistar(self, product_id, type_product):
+		query = self.db.getProductsByIdAndTypeProduct(product_id, type_product)
+		with_box = 280
+		heigth_box = 0
+		name = ""
+		position_x = 20
+		position_y = 0
+		for i in range(0, query.rowCount()):
+			position_y = position_y + 35
+			heigth_box = heigth_box + 55
+			name = query.record(i).value("name")
+			alias = query.record(i).value("alias")
+			self.createCheckboxesPremiumMovistar(name, alias, position_x, position_y, with_box, heigth_box)
+
+
+
+	def generateAditionales(self, product_id, type_product):
+		query = self.db.getProductsByIdAndTypeProduct(product_id, type_product)
+		with_box = 280
+		heigth_box = 0
+		name = ""
+		position_x = 20
+		position_y = 0
+		for i in range(0, query.rowCount()):
+			position_y = position_y + 35
+			heigth_box = heigth_box + 60
+			name = query.record(i).value("name")
+			alias = query.record(i).value("alias")
+			self.createCheckboxesAditionnal(name, alias, position_x, position_y, with_box, heigth_box)
+
+	def createCheckboxesPremiumInter(self, name, alias, position_x, position_y, with_box, heigth_box):
+		self.ui.groupBoxPremiumDTHInter.setGeometry(QtCore.QRect(420, 60, 280, heigth_box))
+		self.checkBox = QtWidgets.QCheckBox(self.ui.groupBoxPremiumDTHInter)
+		self.checkBox.setGeometry(QtCore.QRect(position_x, position_y, 260, 30))
+		self.checkBox.setObjectName(alias)
+		self.checkBox.setText(name)
+
+
+	def createCheckboxesPremiumMovistar(self, name, alias, position_x, position_y, with_box, heigth_box):
+		self.ui.groupBoxPremiumDTHMovistar.setGeometry(QtCore.QRect(420, 60, 280, heigth_box))
+		self.checkBox = QtWidgets.QCheckBox(self.ui.groupBoxPremiumDTHMovistar)
+		self.checkBox.setGeometry(QtCore.QRect(position_x, position_y, 260, 30))
+		self.checkBox.setObjectName(alias)
+		self.checkBox.setText(name)
+     
+	def createCheckboxesAditionnal(self, name, alias, position_x, position_y, with_box, heigth_box):
+		self.ui.groupBoxAditionalsDTH.setGeometry(QtCore.QRect(20, 190, 360, heigth_box))
+		self.checkBox = QtWidgets.QCheckBox(self.ui.groupBoxAditionalsDTH)
+		self.checkBox.setGeometry(QtCore.QRect(position_x, position_y, 220, 30))
+		self.checkBox.setObjectName(alias)
+		self.checkBox.setText(name)
+
+		self.spinBox = QtWidgets.QSpinBox(self.ui.groupBoxAditionalsDTH)
+		self.spinBox.setMinimum(1)
+		self.spinBox.setProperty("value", 1)
+		self.spinBox.setGeometry(QtCore.QRect(position_x + 200, position_y, 50, 30))
+		self.spinBox.setObjectName(alias + "_qty")
 
 	def clearDHT(self):
-         self.ui.basico_satelital_dth.setChecked(True)
-         self.ui.optimo_hd_inter.setChecked(False)
-         self.ui.optimo_full_hd_inter.setChecked(False)
-         self.ui.optimo_hd_movistar.setChecked(False)
-         self.ui.optimo_full_hd_movistar.setChecked(False)
-         self.ui.bym_dth.setChecked(False)
-         self.ui.hbo_dth.setChecked(False)
-         self.ui.dsports_dth.setChecked(False)
-         self.ui.venus_dth.setChecked(False)
-         self.ui.goldem_dth.setChecked(False)
-         self.ui.deco_dth.setChecked(False)
-         self.ui.deco_adicional_dth.setValue(1)
-         self.ui.txtticket_ab_dth.clear()
-         self.ui.txtticket_k2b_dth.clear()
-         self.ui.lbl_total_dth.setText("Total Bs %.2f / $ %.2f" % (0, 0))
+		query = self.db.getProductsByIdAndTypeProduct(self.current_product_id, self.current_premium)
+		for i in range(0, query.rowCount()):
+			alias = query.record(i).value("alias")
+			checkbox = self.findChild(QCheckBox, alias)
+			checkbox.setChecked(False)
+
+		aditionals = self.db.getProductsByIdAndTypeProduct(self.current_product_id, self.current_aditionals)
+		for i in range(0, aditionals.rowCount()):
+			alias = aditionals.record(i).value("alias")
+			checkbox = self.findChild(QCheckBox, alias)
+			checkbox.setChecked(False)
+
+		self.ui.txtticket_ab_dth.clear()
+		self.ui.txtticket_k2b_dth.clear()
+		self.ui.lbl_total_dth.setText("Total Bs %.2f / $ %.2f" % (0, 0))
 
 	def generateTicketSupport(self):
 		self.ui.txt_ticket_k2b_dth_support.clear()
@@ -216,12 +358,27 @@ class Dth(QDialog):
 	def listDecoders(self):
 		decoder = self.ui.txt_dth_decoder.text()
 		if decoder != "":
-		    self.ui.dth_list_decoder.addItem(decoder)
+			self.ui.dth_list_decoder.addItem(decoder)
 		self.ui.txt_dth_decoder.clear()
 
 	def removeDecoder(self):
 		self.ui.dth_list_decoder.takeItem(self.ui.dth_list_decoder.currentRow())
 
+	def templateUndefined(self, message):
+		QMessageBox.about(self, "Plantilla no definida", message)
+
+	def changedPlans(self, value):
+		value = value.lower()
+		if value.find('inter') != -1:
+			self.ui.groupBoxPremiumDTHMovistar.setVisible(False)
+			self.ui.groupBoxPremiumDTHInter.setVisible(True)
+			self.current_premium = 11
+			self.generatePremiumInter(self.current_product_id, self.current_premium)
+		else:
+			self.ui.groupBoxPremiumDTHMovistar.setVisible(True)
+			self.ui.groupBoxPremiumDTHInter.setVisible(False)
+			self.current_premium = 10
+			self.generatePremiumMovistar(self.current_product_id, self.current_premium)
 
 
 

@@ -28,7 +28,7 @@
     </font>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <property name="iconSize">
     <size>
@@ -50,113 +50,13 @@
     <attribute name="title">
      <string>Tickets de ventas</string>
     </attribute>
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QGroupBox" name="groupBoxPremiumTVHfc">
      <property name="geometry">
       <rect>
        <x>20</x>
        <y>60</y>
-       <width>250</width>
-       <height>121</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Arial</family>
-       <pointsize>10</pointsize>
-       <weight>50</weight>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="acceptDrops">
-      <bool>true</bool>
-     </property>
-     <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">font: 10pt &quot;Arial&quot;;</string>
-     </property>
-     <property name="title">
-      <string>Planes TV</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-     </property>
-     <property name="flat">
-      <bool>false</bool>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="0">
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <widget class="QCheckBox" name="hfc_tv_basic">
-          <property name="font">
-           <font>
-            <family>Arial</family>
-            <pointsize>10</pointsize>
-            <weight>50</weight>
-            <italic>false</italic>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Paquete Básico Cable</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="hfc_tv_family">
-          <property name="text">
-           <string>Canales Adicionales Cable Familiar</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
-          <item>
-           <widget class="QCheckBox" name="hfc_tv_aditional_cable">
-            <property name="text">
-             <string>Toma adicional</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_7">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QSpinBox" name="hfc_tv_aditional_cable_qty">
-            <property name="minimum">
-             <number>1</number>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QGroupBox" name="groupBox_3">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>205</y>
-       <width>561</width>
-       <height>191</height>
+       <width>280</width>
+       <height>100</height>
       </rect>
      </property>
      <property name="font">
@@ -165,130 +65,15 @@
       </font>
      </property>
      <property name="title">
-      <string>Servicios Premium TV Cable</string>
+      <string>TV Cable / Planes / Premiun</string>
      </property>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>27</y>
-        <width>541</width>
-        <height>151</height>
-       </rect>
-      </property>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="5">
-        <widget class="QCheckBox" name="hfc_tv_hbo">
-         <property name="text">
-          <string>Paquete HBO</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2" colspan="2">
-        <widget class="QCheckBox" name="hfc_tv_venus">
-         <property name="text">
-          <string>Venus</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QCheckBox" name="hfc_tv_bym">
-         <property name="text">
-          <string>Canal  ByM Sports</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="5">
-        <widget class="QCheckBox" name="hfc_tv_gold">
-         <property name="text">
-          <string> Gold</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2" colspan="2">
-        <widget class="QCheckBox" name="hfc_tv_digital">
-         <property name="text">
-          <string>Servicio Digital</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="5">
-        <widget class="QCheckBox" name="hfc_tv_golden">
-         <property name="text">
-          <string>Golden Premier</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QCheckBox" name="hfc_tv_dsports">
-         <property name="text">
-          <string>D Sports</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QCheckBox" name="hfc_tv_hot_pack">
-         <property name="text">
-          <string>Hot Pack Go</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2" colspan="2">
-        <widget class="QCheckBox" name="hfc_tv_fsn">
-         <property name="text">
-          <string>Canal FSN</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <spacer name="horizontalSpacer_6">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="4">
-        <spacer name="horizontalSpacer_9">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="2" column="0">
-        <widget class="QCheckBox" name="hfc_tv_international">
-         <property name="text">
-          <string>Paquete Internacional</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2" colspan="2">
-        <widget class="QCheckBox" name="hfc_tv_playboy">
-         <property name="text">
-          <string>Play Boy  </string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
     </widget>
-    <widget class="QGroupBox" name="groupBox_2">
+    <widget class="QGroupBox" name="groupBoxAditionalTVHfc">
      <property name="geometry">
       <rect>
        <x>330</x>
-       <y>60</y>
-       <width>250</width>
+       <y>300</y>
+       <width>310</width>
        <height>100</height>
       </rect>
      </property>
@@ -300,77 +85,6 @@
      <property name="title">
       <string>Deco / Cajas Digitales</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_5">
-      <item row="0" column="0">
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
-          <item>
-           <widget class="QCheckBox" name="hfc_tv_deco_digital">
-            <property name="text">
-             <string>Alquiler Caja Digital</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_3">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QSpinBox" name="hfc_tv_deco_digital_qyt">
-            <property name="minimum">
-             <number>1</number>
-            </property>
-            <property name="value">
-             <number>1</number>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </item>
-      <item row="1" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout_6">
-        <item>
-         <widget class="QCheckBox" name="hfc_tv_deco_analogy">
-          <property name="text">
-           <string>Alquiler Deco Analogico</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_8">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QSpinBox" name="hfc_tv_deco_analogy_qty">
-          <property name="minimum">
-           <number>1</number>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
     </widget>
     <widget class="QLabel" name="lbl_total_dth">
      <property name="geometry">
@@ -463,10 +177,10 @@
     <widget class="QGroupBox" name="groupBox_8">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>420</y>
-       <width>561</width>
-       <height>141</height>
+       <x>330</x>
+       <y>60</y>
+       <width>311</width>
+       <height>231</height>
       </rect>
      </property>
      <property name="title">
@@ -475,9 +189,9 @@
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>320</x>
-        <y>80</y>
-        <width>221</width>
+        <x>10</x>
+        <y>170</y>
+        <width>281</width>
         <height>46</height>
        </rect>
       </property>
@@ -496,7 +210,7 @@
          </property>
          <property name="maximumSize">
           <size>
-           <width>200</width>
+           <width>300</width>
            <height>500</height>
           </size>
          </property>
@@ -525,8 +239,8 @@
      <widget class="QCheckBox" name="checkBox_2">
       <property name="geometry">
        <rect>
-        <x>320</x>
-        <y>40</y>
+        <x>10</x>
+        <y>140</y>
         <width>211</width>
         <height>21</height>
        </rect>

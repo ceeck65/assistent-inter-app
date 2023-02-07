@@ -116,8 +116,8 @@ class Prices(QDialog):
         alias =  alias.replace(" ", "_")
         name = string.capwords(name)
         description = string.capwords(description)
-        price_ves = 0 if price_ves == "" else price_ves
-        price_usd = 0 if price_usd == "" else price_usd
+        price_ves = 0 if price_ves == "" else float(price_ves)
+        price_usd = 0 if price_usd == "" else float(price_usd)
         type_product_id = type_product_id + 1
 
         sql = "INSERT INTO plans_packages (name, description, product_id, price_ves, price_usd, alias, type_product_id) \

@@ -56,7 +56,7 @@
        <x>20</x>
        <y>60</y>
        <width>361</width>
-       <height>111</height>
+       <height>101</height>
       </rect>
      </property>
      <property name="font">
@@ -86,49 +86,37 @@
      <property name="flat">
       <bool>false</bool>
      </property>
-     <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="0">
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <widget class="QCheckBox" name="basico_satelital_dth">
-          <property name="font">
-           <font>
-            <family>Arial</family>
-            <pointsize>10</pointsize>
-            <weight>50</weight>
-            <italic>false</italic>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Plan Básico Satélital</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_8">
-          <property name="text">
-           <string>Planes</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="plans_dth"/>
-        </item>
-       </layout>
-      </item>
-     </layout>
+     <widget class="QComboBox" name="plans_dth">
+      <property name="geometry">
+       <rect>
+        <x>11</x>
+        <y>52</y>
+        <width>331</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>11</x>
+        <y>30</y>
+        <width>40</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Planes</string>
+      </property>
+     </widget>
     </widget>
-    <widget class="QGroupBox" name="groupBox_3">
+    <widget class="QGroupBox" name="groupBoxPremiumDTHMovistar">
      <property name="geometry">
       <rect>
        <x>420</x>
        <y>60</y>
-       <width>241</width>
-       <height>251</height>
+       <width>280</width>
+       <height>100</height>
       </rect>
      </property>
      <property name="font">
@@ -139,112 +127,7 @@
      <property name="title">
       <string>Premium</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_4">
-      <item row="0" column="0">
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <widget class="QCheckBox" name="bym_dth">
-          <property name="text">
-           <string>Canal  ByM Sports</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_6">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="hbo_dth">
-          <property name="text">
-           <string>Paquete HBO</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_7">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="dsports_dth">
-          <property name="text">
-           <string>D Sports</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_8">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="venus_dth">
-          <property name="text">
-           <string>Venus</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_9">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="goldem_dth">
-          <property name="text">
-           <string>Golden Premier</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_10">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </item>
-     </layout>
+     <layout class="QGridLayout" name="gridLayout_4"/>
     </widget>
     <widget class="QLabel" name="lblPriceReferentialDolarDTH">
      <property name="geometry">
@@ -264,13 +147,13 @@
       <string>TextLabel</string>
      </property>
     </widget>
-    <widget class="QGroupBox" name="groupBox_2">
+    <widget class="QGroupBox" name="groupBoxAditionalsDTH">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>200</y>
-       <width>361</width>
-       <height>94</height>
+       <y>190</y>
+       <width>360</width>
+       <height>100</height>
       </rect>
      </property>
      <property name="font">
@@ -281,50 +164,7 @@
      <property name="title">
       <string>Otros Servicios</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_5">
-      <item row="0" column="0">
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
-          <item>
-           <widget class="QCheckBox" name="deco_dth">
-            <property name="text">
-             <string>Programación espejo (Deco adicional)</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_3">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QSpinBox" name="deco_adicional_dth">
-            <property name="value">
-             <number>1</number>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="kaon_dth">
-          <property name="text">
-           <string>Alquiler KAON</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
+     <layout class="QGridLayout" name="gridLayout_5"/>
     </widget>
     <widget class="QLabel" name="lbl_total_dth">
      <property name="geometry">
@@ -443,6 +283,25 @@
      <property name="text">
       <string>Ticket K2B</string>
      </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBoxPremiumDTHInter">
+     <property name="geometry">
+      <rect>
+       <x>420</x>
+       <y>60</y>
+       <width>280</width>
+       <height>100</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="title">
+      <string>Premium</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_7"/>
     </widget>
    </widget>
    <widget class="QWidget" name="tab_2">

@@ -1,7 +1,7 @@
 
 import json
 from modules.Databases.database import Database
-
+from PyQt5.QtWidgets import  QPushButton, QMessageBox
 
 def setDolar(dolar):
 	with open('modules/Data/data.json', 'r', encoding = "utf-8") as jsonFile:
@@ -68,22 +68,9 @@ def resetChatTransfer():
 
 
 
-
-# def getPricesByProducts(product):
-#      sql = "SELECT plans_packages.name, price, currency FROM products \
-#              INNER JOIN plans_packages on plans_packages.product_id = products.id \
-#              INNER JOIN prices on prices.plans_id = plans_packages.id \
-#              INNER JOIN currencies on prices.currency_id = currencies.id \
-#              WHERE products.name = '" + product + "'"
-             
-#      dicts = {}
-#      i=0
-#      query = getQuery(sql)
-#      while query.next():
-         
-#          dicts[i] = query.value(0)
-         
-#      i+1
-#      print(dicts)
-#      return query
-    
+def templateUndefined(message):
+	msgBox = QMessageBox()
+	msgBox.setIcon(QMessageBox.Information)
+	msgBox.setText(message)
+	msgBox.setWindowTitle("Plantilla No definida")
+	QMessageBox.about("Plantilla No definida", message)

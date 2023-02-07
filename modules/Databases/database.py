@@ -46,7 +46,7 @@ class Database():
         for arg in args:
             query.addBindValue(arg)
         exec = query.exec()
-        last_id = self.getQuery("SELECT last_insert_rowid();")
+        last_id = self.getQuery("select max(id) from templates;")
         last_id =  last_id.record(0).value(0)
         return [exec, last_id]
     

@@ -28,7 +28,7 @@
     </font>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <property name="iconSize">
     <size>
@@ -55,8 +55,8 @@
       <rect>
        <x>20</x>
        <y>60</y>
-       <width>280</width>
-       <height>121</height>
+       <width>281</width>
+       <height>111</height>
       </rect>
      </property>
      <property name="font">
@@ -87,66 +87,15 @@
       <bool>false</bool>
      </property>
      <layout class="QGridLayout" name="gridLayout_3">
+      <item row="1" column="0">
+       <widget class="QComboBox" name="plans_tv_fibrahogar"/>
+      </item>
       <item row="0" column="0">
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <widget class="QCheckBox" name="fibrahogar_basic">
-          <property name="font">
-           <font>
-            <family>Arial</family>
-            <pointsize>10</pointsize>
-            <weight>50</weight>
-            <italic>false</italic>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Paquete Básico Cable</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="fibrahogar_family">
-          <property name="text">
-           <string>Canales Adicionales Cable Familiar</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
-          <item>
-           <widget class="QCheckBox" name="fibrahogar_aditional_cable">
-            <property name="text">
-             <string>Toma adicional</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_7">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QSpinBox" name="fibrahogar_aditional_cable_qty">
-            <property name="minimum">
-             <number>1</number>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
+       <widget class="QCheckBox" name="is_tv_fibrahogar">
+        <property name="text">
+         <string>¿Posee plan de Televisión?</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -168,13 +117,13 @@
       <string>Servicios Premium TV Cable</string>
      </property>
     </widget>
-    <widget class="QGroupBox" name="groupBox_2">
+    <widget class="QGroupBox" name="groupBoxAditionalFribrahogar">
      <property name="geometry">
       <rect>
        <x>330</x>
-       <y>60</y>
-       <width>301</width>
-       <height>121</height>
+       <y>340</y>
+       <width>300</width>
+       <height>80</height>
       </rect>
      </property>
      <property name="font">
@@ -183,79 +132,8 @@
       </font>
      </property>
      <property name="title">
-      <string>Deco / Cajas Digitales</string>
+      <string>Equipos</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_5">
-      <item row="0" column="0">
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
-          <item>
-           <widget class="QCheckBox" name="fibrahogar_deco_digital">
-            <property name="text">
-             <string>Alquiler Caja Digital</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_3">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QSpinBox" name="fibrahogar_deco_digital_qyt">
-            <property name="minimum">
-             <number>1</number>
-            </property>
-            <property name="value">
-             <number>1</number>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </item>
-      <item row="1" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout_6">
-        <item>
-         <widget class="QCheckBox" name="fibrahogar_deco_analogy">
-          <property name="text">
-           <string>Alquiler Deco Analogico</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_8">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QSpinBox" name="fibrahogar_deco_analogy_qty">
-          <property name="minimum">
-           <number>1</number>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
     </widget>
     <widget class="QLabel" name="lbl_total_fibrahogar">
      <property name="geometry">
@@ -349,8 +227,8 @@
      <property name="geometry">
       <rect>
        <x>330</x>
-       <y>200</y>
-       <width>301</width>
+       <y>60</y>
+       <width>300</width>
        <height>261</height>
       </rect>
      </property>

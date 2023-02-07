@@ -6,14 +6,18 @@ Created on Sun Jan 22 02:42:38 2023
 """
 import sys
 import locale
-from PyQt5 import QtCore
+from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import (
     QDialog,
+    QCheckBox,
+    QMessageBox,
+    QSpinBox
 )
 from modules.Databases.modeldb import modelDb
 from modules.Hfc.hfc_tv_ui import Ui_Dialog
 from modules.Data.templates import getTemplate, getLabel
 from modules.Data.data import getDolar
+from modules.Databases.modeldb import modelDb
 
 
 class HfcTv(QDialog):
@@ -25,6 +29,9 @@ class HfcTv(QDialog):
         self.dolar = getDolar()
         self.ui.is_internet_hfc.stateChanged.connect (self.fillComboInternet)
         self.ui.btn_ticket_hfc_tv.clicked.connect(self.generateTicketTVHCFSales)
+        self.ui.btn_clear_hfc_tv.clicked.connect(self.clearHfc)
+        self.generatePremium()
+        self.generateAditionales()
         
 
 
@@ -53,181 +60,176 @@ class HfcTv(QDialog):
             labels = getLabel('hfc_tv_sales_ab')
             labels_k2b = getLabel('hfc_tv_sales_kb2')
             prefix = labels["PREFIX"]
-            basic = ""
-            tv_family = ""
-            tv_bym = ""
-            tv_dsports = ""
-            tv_international = ""
-            tv_hot_pack = ""
-            tv_fsn = ""
-            tv_venus = ""
-            tv_playboy = ""
-            tv_digital = ""
-            tv_hbo = ""
-            tv_golden = ""
-            tv_gold = ""
             internet=""
-
-
+            premium = self.db.getProductsByIdAndTypeProduct(3, 9)
+            aditionals = self.db.getProductsByIdAndTypeProduct(3, 3)
+            list_plans_tv = []
+            list_adiotionals = []
             #labes K2B
-            basic_k2b =""
-            tv_family_k2b =""
-            tv_bym_k2b =""
-            tv_dsports_k2b =""
-            tv_international_k2b=""
-            tv_hot_pack_k2b =""
-            tv_fsn_k2b =""
-            tv_venus_k2b =""
-            tv_playboy_k2b=""
-            tv_digital_k2b = ""
-            tv_hbo_k2b = ""
-            tv_golden_k2b = ""
-            tv_gold_k2b = ""
             internet_k2b=""
             
             total = 0
             total_usd = 0
             
-            if self.ui.hfc_tv_basic.isChecked():
-                prices = self.db.getPricePlansPackage("basico_cable")
-                basic = labels["BASIC_CABLE"] % prices['price_ves']
-                basic_k2b = labels_k2b["BASIC_CABLE"] % prices['price_ves']
-                total = total + self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
-                total_usd = total_usd + self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
-
-            if self.ui.hfc_tv_family.isChecked():
-                prices = self.db.getPricePlansPackage("cable_familiar")
-                tv_family = labels["FAMILY_CABLE"] % prices['price_ves']
-                tv_family_k2b = labels_k2b["FAMILY_CABLE"] % prices['price_ves']
-                total = total + self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
-                total_usd = total_usd + self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
-
-            if self.ui.hfc_tv_bym.isChecked():
-                prices = self.db.getPricePlansPackage("canal_bym_sport")
-                tv_bym = labels["BYM"] % prices['price_ves']
-                tv_bym_k2b = labels_k2b["BYM"] % prices['price_ves']
-                total = total + self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
-                total_usd = total_usd + self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
-
-            if self.ui.hfc_tv_dsports.isChecked():
-                prices = self.db.getPricePlansPackage("d_sports")
-                tv_dsports = labels["DSPORTS"] % prices['price_ves']
-                tv_dsports_k2b = labels_k2b["DSPORTS"] % prices['price_ves']
-                total = total + self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
-                total_usd = total_usd + self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
-
-            if self.ui.hfc_tv_international.isChecked():
-                prices = self.db.getPricePlansPackage("paquete_internacional")
-                tv_international = labels["INTERNATIONAL"] % prices['price_ves']
-                tv_international_k2b = labels_k2b["INTERNATIONAL"] % prices['price_ves']
-                total = total + self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
-                total_usd = total_usd + self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
-
-            if self.ui.hfc_tv_hot_pack.isChecked():
-                prices = self.db.getPricePlansPackage("hot_pack_go")
-                tv_hot_pack = labels["HOT_GO"] % prices['price_ves']
-                tv_hot_pack_k2b = labels_k2b["HOT_GO"] % prices['price_ves']
-                total = total + self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
-                total_usd = total_usd + self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
-
-            if self.ui.hfc_tv_fsn.isChecked():
-                prices = self.db.getPricePlansPackage("canal_fsn")
-                tv_fsn = labels["FSN"] % prices['price_ves']
-                tv_fsn_k2b = labels_k2b["FSN"] % prices['price_ves']
-                total = total + self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
-                total_usd = total_usd + self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
-
-            if self.ui.hfc_tv_venus.isChecked():
-                prices = self.db.getPricePlansPackage("venus")
-                tv_venus = labels["VENUS"] % prices['price_ves']
-                tv_venus_k2b = labels_k2b["VENUS"] % prices['price_ves']
-                total = total + self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
-                total_usd = total_usd + self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
-
-            if self.ui.hfc_tv_playboy.isChecked():
-                prices = self.db.getPricePlansPackage("play_boy")
-                tv_playboy = labels["PLAYBOY"] % prices['price_ves']
-                tv_playboy_k2b = labels_k2b["PLAYBOY"] % prices['price_ves']
-                total = total + self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
-                total_usd = total_usd + self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
-
-            if self.ui.hfc_tv_digital.isChecked():
-                prices = self.db.getPricePlansPackage("servicio_digital")
-                tv_digital = labels["TV_DIGITAL"] % prices['price_ves']
-                tv_digital_k2b = labels_k2b["TV_DIGITAL"] % prices['price_ves']
-                total = total + self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
-                total_usd = total_usd + self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
-
-            if self.ui.hfc_tv_hbo.isChecked():
-                prices = self.db.getPricePlansPackage("hbo")
-                tv_hbo = labels["HBO"] % prices['price_ves']
-                tv_hbo_k2b = labels_k2b["HBO"] % prices['price_ves']
-                total = total + self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
-                total_usd = total_usd + self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
-
-            if self.ui.hfc_tv_golden.isChecked():
-                prices = self.db.getPricePlansPackage("golden")
-                tv_golden = labels["GOLDEN"] % prices['price_ves']
-                tv_golden_k2b = labels_k2b["GOLDEN"] % prices['price_ves']
-                total = total + self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
-                total_usd = total_usd + self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
-
-            if self.ui.hfc_tv_gold.isChecked():
-                prices = self.db.getPricePlansPackage("gold")
-                tv_gold = labels["GOLD"] % prices['price_ves']
-                tv_gold_k2b = labels_k2b["GOLD"] % prices['price_ves']
-                total = total + self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
-                total_usd = total_usd + self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
 
             if self.ui.is_internet_hfc.isChecked():
                 internet_ = self.ui.combo_internet_hfc.currentText()
                 prices = self.db.getPricePlansPackageByName(internet_)
-                internet = labels["PLAN_INTERNET"] % (internet_, prices['price_ves'])
-                internet_k2b = labels_k2b["PLAN_INTERNET"] % (internet_, prices['price_ves'])
-                total = total + self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
-                total_usd = total_usd + self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
+                alias  = self.db.getAliasByName(internet_)
+                template = self.db.getTemplateByAlias(alias)
+                price_ves = self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
+                price_usd = self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
+                if template == None:
+                    self.templateUndefined("Plantilla %s no definida, por favor configure la plantilla."  % internet_)
+                    self.ui.is_internet_hfc.setChecked(False)
+                else:
+                    internet = template % (price_ves)
+                    total = total + price_ves
+                    total_usd = total_usd + price_usd
 
-            if self.ui.hfc_tv_aditional_cable.isChecked():
-                internet_ = self.ui.combo_internet_hfc.currentText()
-                prices = self.db.getPricePlansPackageByName(internet_)
-                internet = labels["PLAN_INTERNET"] % (internet_, prices['price_ves'])
-                internet_k2b = labels_k2b["PLAN_INTERNET"] % (internet_, prices['price_ves'])
-                total = total + self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
-                total_usd = total_usd + self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
+            for i in range(0, premium.rowCount()):
+                alias = premium.record(i).value("alias")
+                checkbox = self.findChild(QCheckBox, alias)
+                if checkbox.isChecked():
+                    prices = self.db.getPricePlansPackageByAlias(alias)
+                    template = self.db.getTemplateByAlias(alias)
+                    name_package = self.db.findPackageNameByAlias(alias)
+                    price_ves = self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
+                    price_usd = self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
+                    if template == None:
+                        self.templateUndefined("Plantilla %s no definida, por favor configure la plantilla." % name_package)
+                        checkbox.setChecked(False)
+                    else:
+                        premium_tv_ = template % (price_ves)
+                        total = total + price_ves
+                        total_usd = total_usd + price_usd
+                        list_plans_tv.append(premium_tv_)
 
-            if self.ui.is_internet_hfc.isChecked():
-                internet_ = self.ui.combo_internet_hfc.currentText()
-                prices = self.db.getPricePlansPackageByName(internet_)
-                internet = labels["PLAN_INTERNET"] % (internet_, prices['price_ves'])
-                internet_k2b = labels_k2b["PLAN_INTERNET"] % (internet_, prices['price_ves'])
-                total = total + self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
-                total_usd = total_usd + self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
+            premium_tv =""
+            for item in list_plans_tv:
+                premium_tv += item
 
-            if self.ui.is_internet_hfc.isChecked():
-                internet_ = self.ui.combo_internet_hfc.currentText()
-                prices = self.db.getPricePlansPackageByName(internet_)
-                internet = labels["PLAN_INTERNET"] % (internet_, prices['price_ves'])
-                internet_k2b = labels_k2b["PLAN_INTERNET"] % (internet_, prices['price_ves'])
-                total = total + self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
-                total_usd = total_usd + self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
+
+            for i in range(0, aditionals.rowCount()):
+                alias = aditionals.record(i).value("alias")
+                checkbox = self.findChild(QCheckBox, alias)
+                qty = self.findChild(QSpinBox, alias+"_qty")
+                if checkbox.isChecked():
+                    prices = self.db.getPricePlansPackageByAlias(alias)
+                    template = self.db.getTemplateByAlias(alias)
+                    name_package = self.db.findPackageNameByAlias(alias)
+                    price_ves = self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
+                    price_usd = self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
+                    if template == None:
+                        self.templateUndefined("Plantilla %s no definida, por favor configure la plantilla." %  name_package)
+                        checkbox.setChecked(False)
+                    else:
+                        qty_ = qty.value()
+                        aditional_ = template % (qty_, price_ves)
+                        total = total + (price_ves * qty_)
+                        total_usd = total_usd + (price_usd * qty_)
+                        list_adiotionals.append(aditional_)
+
+            aditional=""
+            for item in list_adiotionals:
+                aditional+= item
+
 
             if total > 0:
-                total_ves = labels["TOTAL_VES"] % float(total)
-                total_ves_k2b = labels_k2b["TOTAL_VES"] % float(total)
+                total_ves = labels["TOTAL"] % float(total)
+                total_ves_k2b = labels_k2b["TOTAL"] % float(total)
             else:
                 total_ves = ""
                 total_ves_k2b = ""
 
-            text =      "%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s" % (prefix, basic, tv_family, tv_bym, tv_dsports, tv_international, tv_hot_pack, tv_fsn, tv_venus, tv_playboy, tv_digital, tv_hbo, tv_golden, tv_gold, internet, total_ves)
-            text_k2b =  "%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s" % (labels_k2b["PREFIX"],
-            basic_k2b, tv_family_k2b, tv_bym_k2b, tv_dsports_k2b, tv_international_k2b, tv_hot_pack_k2b, tv_fsn_k2b, tv_venus_k2b, tv_playboy_k2b, tv_digital_k2b, tv_hbo_k2b, tv_golden_k2b, tv_gold_k2b, internet_k2b, total_ves_k2b)
+            text =      "%s%s%s%s%s" % (prefix, premium_tv, internet, aditional, total_ves)
+            temp_ =  "%s%s%s%s%s" % (labels_k2b["PREFIX"], premium_tv, internet, aditional, total_ves_k2b)
+            temp_ = temp_.replace(" el cual tiene un costo de", "")
+            temp_ = temp_.replace(" todos nuestros precios incluyen IVA.", "")
+            temp_ = temp_.replace("para un monto total de ", "")
+            text_k2b = temp_.replace("(Sujeto a cambio tasa BCV)", "")
             
             self.ui.ticket_ab_hfc_tv.setText(text)
             self.ui.ticket_k2b_hfc_tv.setText(text_k2b)
             self.ui.lbl_total_dth.setText("Total Bs %.2f / Total $ %.2f" % (total, total_usd))
-        except:
-            print("An exception occurred")
+        except Exception as e:
+            print(e)
+
+
+    def generatePremium(self):
+        product_id = 3
+        type_product = 9
+        query = self.db.getProductsByIdAndTypeProduct(product_id, type_product)
+        with_box = 280
+        heigth_box = 0
+        name = ""
+        position_x = 20
+        position_y = 0
+        for i in range(0, query.rowCount()):
+            position_y = position_y + 35
+            heigth_box = heigth_box + 40
+            name = query.record(i).value("name")
+            alias = query.record(i).value("alias")
+            self.createCheckboxesPremium(name, alias, position_x, position_y, with_box, heigth_box)
+
+
+    def generateAditionales(self):
+        product_id = 3
+        type_product = 3
+        query = self.db.getProductsByIdAndTypeProduct(product_id, type_product)
+        with_box = 280
+        heigth_box = 0
+        name = ""
+        position_x = 20
+        position_y = 0
+        for i in range(0, query.rowCount()):
+            position_y = position_y + 35
+            heigth_box = heigth_box + 50
+            name = query.record(i).value("name")
+            alias = query.record(i).value("alias")
+            self.createCheckboxesAditionnal(name, alias, position_x, position_y, with_box, heigth_box)
+
+
+    def createCheckboxesPremium(self, name, alias, position_x, position_y, with_box, heigth_box):
+        self.ui.groupBoxPremiumTVHfc.setGeometry(QtCore.QRect(20, 60, 280, heigth_box))
+        self.checkBox = QtWidgets.QCheckBox(self.ui.groupBoxPremiumTVHfc)
+        self.checkBox.setGeometry(QtCore.QRect(position_x, position_y, 260, 30))
+        self.checkBox.setObjectName(alias)
+        self.checkBox.setText(name)
+     
+    def createCheckboxesAditionnal(self, name, alias, position_x, position_y, with_box, heigth_box):
+        self.ui.groupBoxAditionalTVHfc.setGeometry(QtCore.QRect(330, 300, 300, heigth_box))
+        self.checkBox = QtWidgets.QCheckBox(self.ui.groupBoxAditionalTVHfc)
+        self.checkBox.setGeometry(QtCore.QRect(position_x, position_y, 220, 30))
+        self.checkBox.setObjectName(alias)
+        self.checkBox.setText(name)
+
+        self.spinBox = QtWidgets.QSpinBox(self.ui.groupBoxAditionalTVHfc)
+        self.spinBox.setMinimum(1)
+        self.spinBox.setProperty("value", 1)
+        self.spinBox.setGeometry(QtCore.QRect(position_x + 200, position_y, 50, 30))
+        self.spinBox.setObjectName(alias + "_qty")
 
 
 
+    def clearHfc(self):
+        query = self.db.getProductsByIdAndTypeProduct(3, 9)
+        for i in range(0, query.rowCount()):
+            alias = query.record(i).value("alias")
+            checkbox = self.findChild(QCheckBox, alias)
+            checkbox.setChecked(False)
+
+        aditionals = self.db.getProductsByIdAndTypeProduct(3, 3)
+        for i in range(0, aditionals.rowCount()):
+            alias = aditionals.record(i).value("alias")
+            checkbox = self.findChild(QCheckBox, alias)
+            spinBox = self.findChild(QSpinBox, alias+"_qty")
+            spinBox.setProperty("value", 1)
+            checkbox.setChecked(False)
+        self.ui.ticket_ab_hfc_tv.clear()
+        self.ui.ticket_k2b_hfc_tv.clear()
+        self.ui.is_internet_hfc.setChecked(False)
+
+    def templateUndefined(self, message):
+        QMessageBox.about(self, "Plantilla no definida", message)
     

@@ -89,7 +89,7 @@
        <rect>
         <x>20</x>
         <y>40</y>
-        <width>381</width>
+        <width>271</width>
         <height>51</height>
        </rect>
       </property>
@@ -113,34 +113,12 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="layoutWidget_2">
-      <property name="geometry">
-       <rect>
-        <x>430</x>
-        <y>40</y>
-        <width>251</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_9">
-       <item>
-        <widget class="QLabel" name="label_9">
-         <property name="text">
-          <string>Categoría</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="plans_package"/>
-       </item>
-      </layout>
-     </widget>
      <widget class="QWidget" name="layoutWidget_3">
       <property name="geometry">
        <rect>
-        <x>720</x>
+        <x>760</x>
         <y>40</y>
-        <width>251</width>
+        <width>211</width>
         <height>51</height>
        </rect>
       </property>
@@ -179,6 +157,50 @@
       <property name="text">
        <string>Plantilla</string>
       </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_4">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>40</y>
+        <width>211</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_10">
+       <item>
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>Producto</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="products"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>40</y>
+        <width>201</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_9">
+       <item>
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>Categoría</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="plans_package"/>
+       </item>
+      </layout>
      </widget>
     </widget>
     <widget class="QTableView" name="tbl_templates">
