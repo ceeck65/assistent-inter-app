@@ -198,7 +198,7 @@ class HfcTv(QDialog):
         self.checkBox.setText(name)
      
     def createCheckboxesAditionnal(self, name, alias, position_x, position_y, with_box, heigth_box):
-        self.ui.groupBoxAditionalTVHfc.setGeometry(QtCore.QRect(330, 300, 300, heigth_box))
+        self.ui.groupBoxAditionalTVHfc.setGeometry(QtCore.QRect(330, 360, 300, heigth_box))
         self.checkBox = QtWidgets.QCheckBox(self.ui.groupBoxAditionalTVHfc)
         self.checkBox.setGeometry(QtCore.QRect(position_x, position_y, 220, 30))
         self.checkBox.setObjectName(alias)
