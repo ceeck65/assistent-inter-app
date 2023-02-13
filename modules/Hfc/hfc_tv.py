@@ -15,7 +15,7 @@ from PyQt5.QtWidgets import (
 )
 from modules.Databases.modeldb import modelDb
 from modules.Hfc.hfc_tv_ui import Ui_Dialog
-from modules.Data.templates import getTemplate, getLabel
+from modules.Data.templates import getTemplate, getLabel, getMessages
 from modules.Data.data import getDolar
 from modules.Databases.modeldb import modelDb
 
@@ -28,6 +28,7 @@ class HfcTv(QDialog):
         self.ui.setupUi(self)
         self.dolar = getDolar()
         self.ui.is_internet_hfc.stateChanged.connect (self.fillComboInternet)
+        self.ui.is_tv_hfc.stateChanged.connect (self.fillComboTv)
         self.ui.btn_ticket_hfc_tv.clicked.connect(self.generateTicketTVHCFSales)
         self.ui.btn_clear_hfc_tv.clicked.connect(self.clearHfc)
         self.generatePremium()
@@ -45,6 +46,15 @@ class HfcTv(QDialog):
         else:
             combo.setEnabled(False)
 
+    def fillComboTv(self, state):
+        combo = self.ui.combo_tv_hfc
+        if state == QtCore.Qt.Checked:
+            model = sql = self.db.getProductsByIdAndTypeProduct(3, 12)
+            combo.setEnabled(True)
+            combo.setModel(model)
+            combo.setModelColumn(1)
+        else:
+            combo.setEnabled(False)
 
     def getPriceProducts(self, product):
         sql = "SELECT plans_packages.id, plans_packages.name as name, price_ves, price_usd, alias FROM products \
@@ -52,7 +62,11 @@ class HfcTv(QDialog):
                 WHERE products.id = %d" % product
         query = self.db.getData(sql)
         return query 
-
+    
+    def getPriceTvPlans(self, product):
+        sql = self.db.getProductsByIdAndTypeProduct(3, 9)
+        query = self.db.getData(sql)
+        return query 
 
     def generateTicketTVHCFSales(self):
         try:
@@ -61,16 +75,30 @@ class HfcTv(QDialog):
             labels_k2b = getLabel('hfc_tv_sales_kb2')
             prefix = labels["PREFIX"]
             internet=""
+            tv=""
             premium = self.db.getProductsByIdAndTypeProduct(3, 9)
             aditionals = self.db.getProductsByIdAndTypeProduct(3, 3)
             list_plans_tv = []
             list_adiotionals = []
             #labes K2B
-            internet_k2b=""
             
             total = 0
             total_usd = 0
             
+            if self.ui.is_tv_hfc.isChecked():
+                tv_ = self.ui.combo_tv_hfc.currentText()
+                prices = self.db.getPricePlansPackageByName(tv_)
+                alias  = self.db.getAliasByName(tv_)
+                template = self.db.getTemplateByAlias(alias)
+                price_ves = self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
+                price_usd = self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
+                if template == None:
+                    self.templateUndefined(getMessages("TEMPLATE_UNDEFINED") % tv_)
+                    self.ui.is_tv_hfc.setChecked(False)
+                else:
+                    tv = template % (price_ves)
+                    total = total + price_ves
+                    total_usd = total_usd + price_usd
 
             if self.ui.is_internet_hfc.isChecked():
                 internet_ = self.ui.combo_internet_hfc.currentText()
@@ -80,7 +108,7 @@ class HfcTv(QDialog):
                 price_ves = self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
                 price_usd = self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
                 if template == None:
-                    self.templateUndefined("Plantilla %s no definida, por favor configure la plantilla."  % internet_)
+                    self.templateUndefined(getMessages("TEMPLATE_UNDEFINED") % internet_)
                     self.ui.is_internet_hfc.setChecked(False)
                 else:
                     internet = template % (price_ves)
@@ -97,7 +125,7 @@ class HfcTv(QDialog):
                     price_ves = self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
                     price_usd = self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
                     if template == None:
-                        self.templateUndefined("Plantilla %s no definida, por favor configure la plantilla." % name_package)
+                        self.templateUndefined(getMessages("TEMPLATE_UNDEFINED") % name_package)
                         checkbox.setChecked(False)
                     else:
                         premium_tv_ = template % (price_ves)
@@ -121,7 +149,7 @@ class HfcTv(QDialog):
                     price_ves = self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
                     price_usd = self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
                     if template == None:
-                        self.templateUndefined("Plantilla %s no definida, por favor configure la plantilla." %  name_package)
+                        self.templateUndefined(getMessages("TEMPLATE_UNDEFINED") %  name_package)
                         checkbox.setChecked(False)
                     else:
                         qty_ = qty.value()
@@ -142,8 +170,8 @@ class HfcTv(QDialog):
                 total_ves = ""
                 total_ves_k2b = ""
 
-            text =      "%s%s%s%s%s" % (prefix, premium_tv, internet, aditional, total_ves)
-            temp_ =  "%s%s%s%s%s" % (labels_k2b["PREFIX"], premium_tv, internet, aditional, total_ves_k2b)
+            text =      "%s%s%s%s%s%s" % (prefix, tv, premium_tv, internet, aditional, total_ves)
+            temp_ =  "%s%s%s%s%s%s" % (labels_k2b["PREFIX"], tv, premium_tv, internet, aditional, total_ves_k2b)
             temp_ = temp_.replace(" el cual tiene un costo de", "")
             temp_ = temp_.replace(" todos nuestros precios incluyen IVA.", "")
             temp_ = temp_.replace("para un monto total de ", "")
@@ -172,7 +200,6 @@ class HfcTv(QDialog):
             alias = query.record(i).value("alias")
             self.createCheckboxesPremium(name, alias, position_x, position_y, with_box, heigth_box)
 
-
     def generateAditionales(self):
         product_id = 3
         type_product = 3
@@ -189,7 +216,6 @@ class HfcTv(QDialog):
             alias = query.record(i).value("alias")
             self.createCheckboxesAditionnal(name, alias, position_x, position_y, with_box, heigth_box)
 
-
     def createCheckboxesPremium(self, name, alias, position_x, position_y, with_box, heigth_box):
         self.ui.groupBoxPremiumTVHfc.setGeometry(QtCore.QRect(20, 60, 280, heigth_box))
         self.checkBox = QtWidgets.QCheckBox(self.ui.groupBoxPremiumTVHfc)
@@ -198,7 +224,7 @@ class HfcTv(QDialog):
         self.checkBox.setText(name)
      
     def createCheckboxesAditionnal(self, name, alias, position_x, position_y, with_box, heigth_box):
-        self.ui.groupBoxAditionalTVHfc.setGeometry(QtCore.QRect(330, 360, 300, heigth_box))
+        self.ui.groupBoxAditionalTVHfc.setGeometry(QtCore.QRect(330, 360, 310, heigth_box))
         self.checkBox = QtWidgets.QCheckBox(self.ui.groupBoxAditionalTVHfc)
         self.checkBox.setGeometry(QtCore.QRect(position_x, position_y, 220, 30))
         self.checkBox.setObjectName(alias)
@@ -229,6 +255,7 @@ class HfcTv(QDialog):
         self.ui.ticket_ab_hfc_tv.clear()
         self.ui.ticket_k2b_hfc_tv.clear()
         self.ui.is_internet_hfc.setChecked(False)
+        self.ui.is_tv_hfc.setChecked(False)
 
     def templateUndefined(self, message):
         QMessageBox.about(self, "Plantilla no definida", message)

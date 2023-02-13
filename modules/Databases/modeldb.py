@@ -25,6 +25,10 @@ class modelDb():
         qry = self.db.createQuery(sql, args)
         return qry
 
+    def update(self, sql, args):
+        qry = self.db.updateQuery(sql, args)
+        return qry
+
     def getPricePlansPackage(self, alias):
         sql = "SELECT price_ves, price_usd, alias FROM plans_packages WHERE alias = '%s'" % alias
         response = self.getPrices(sql)
@@ -59,7 +63,6 @@ class modelDb():
         name  = model.record(0).value("name")
         return name
 
-
     def getPrices(self, sql):
         model = self.getSingleData(sql)
         price_ves_ = model.record(0).value("price_ves")
@@ -93,4 +96,5 @@ class modelDb():
         query = self.getData(sql)
         return query
 
-
+    def delete(self, sql):
+        return self.db.deleteQuery(sql)

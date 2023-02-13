@@ -114,6 +114,7 @@ class Prices(QDialog):
         temp = name.lower()
         alias =  temp.replace("/", "_")
         alias =  alias.replace(" ", "_")
+        alias  = "%s_%s" % (alias, product_id)
         name = string.capwords(name)
         description = string.capwords(description)
         price_ves = 0 if price_ves == "" else float(price_ves)

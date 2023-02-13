@@ -59,5 +59,8 @@
 		"PREFIX": "// Ab solicita información y costos de plan contratado, se indica posee",
 		"BASIC_SATELITAL": " El Paquete Básico de televisión por cable el cual tiene un costo de Bs. %.2f (Sujeto a cambio tasa BCV)",
 		"END": ", ab conforme, se finaliza.-"
+	},
+	"Errors": {
+		
 	}
 }

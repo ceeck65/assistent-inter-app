@@ -51,5 +51,18 @@ class Database():
         return [exec, last_id]
     
 
-        
+    def updateQuery(self, sql, args):
+        self.createConnection()
+        query = QSqlQuery(self.db)
+        query.prepare(sql)
+        for arg in args:
+            query.addBindValue(arg)
+       
+        exec = query.exec()
+        return exec
+
+    def deleteQuery(self, sql):
+        query = QSqlQuery() 
+        query.exec(sql)
+        return query
         

@@ -14,7 +14,7 @@ from PyQt5.QtWidgets import (
 import string
 from modules.Fibrahogar.fibrahogar_ui import Ui_Dialog
 from modules.Databases.modeldb import modelDb
-from modules.Data.templates import getTemplate, getLabel
+from modules.Data.templates import getTemplate, getLabel, getMessages
 from modules.Data.data import getDolar
 
 
@@ -59,7 +59,7 @@ class FibraHogar(QDialog):
                 price_ves = self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
                 price_usd = self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
                 if template == None:
-                    self.templateUndefined("Plantilla %s no definida, por favor configure la plantilla." % name_package)
+                    self.templateUndefined(getMessages("TEMPLATE_UNDEFINED") % name_package)
                     checkbox.setChecked(False)
                 else:
                     premium_tv_ = template % (price_ves)
@@ -85,7 +85,7 @@ class FibraHogar(QDialog):
                 price_ves = self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
                 price_usd = self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
                 if template == None:
-                    self.templateUndefined("Plantilla %s no definida, por favor configure la plantilla." %  name_package)
+                    self.templateUndefined(getMessages("TEMPLATE_UNDEFINED") %  name_package)
                     checkbox.setChecked(False)
                 else:
                     qty_ = qty.value()
@@ -107,7 +107,7 @@ class FibraHogar(QDialog):
                 price_ves = self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
                 price_usd = self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
                 if template == None:
-                    self.templateUndefined("Plantilla %s no definida, por favor configure la plantilla."  % internet)
+                    self.templateUndefined(getMessages("TEMPLATE_UNDEFINED") % internet)
                     self.ui.is_internet_fibrahogar.setChecked(False)
                 else:
                     internet = template % (price_ves)
@@ -123,7 +123,7 @@ class FibraHogar(QDialog):
                 price_ves = self.db.getPriceVES(prices['price_ves'], prices['price_usd'])
                 price_usd = self.db.getPriceUSD(prices['price_ves'], prices['price_usd'])
                 if template == None:
-                    self.templateUndefined("Plantilla %s no definida, por favor configure la plantilla."  % tv)
+                    self.templateUndefined(getMessages("TEMPLATE_UNDEFINED") % tv)
                     self.ui.is_tv_fibrahogar.setChecked(False)
                 else:
                     plans_tv = template % (price_ves)

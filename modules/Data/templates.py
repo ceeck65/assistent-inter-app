@@ -20,3 +20,8 @@ def getLabel(template):
     with open('modules/Data/text.json', 'r', encoding = "utf-8") as jsonFile:
         data = json.load(jsonFile)
     return data[template]
+
+def getMessages(message):
+    with open('modules/Data/messages.json', 'r', encoding = "utf-8") as jsonFile:
+        data = json.load(jsonFile)
+    return data[message]

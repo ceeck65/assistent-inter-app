@@ -69,7 +69,7 @@ class Ui_Dialog(object):
         self.label_7.setFont(font)
         self.label_7.setObjectName("label_7")
         self.groupBox_8 = QtWidgets.QGroupBox(self.tab)
-        self.groupBox_8.setGeometry(QtCore.QRect(330, 60, 311, 291))
+        self.groupBox_8.setGeometry(QtCore.QRect(330, 60, 310, 291))
         self.groupBox_8.setObjectName("groupBox_8")
         self.layoutWidget = QtWidgets.QWidget(self.groupBox_8)
         self.layoutWidget.setGeometry(QtCore.QRect(10, 230, 281, 46))

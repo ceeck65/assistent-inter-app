@@ -1,0 +1,4 @@
+{
+    "UNFORMATTED": "<p style='font-size: 14px'><b style='color: red'>Formato de plantilla Incorrecto</b>, Por favor corrija el formato de la plantilla, \npara mayor información consulte la Ayuda, Manual de usuario ó presione (F1).</p>",
+    "TEMPLATE_UNDEFINED": "<p style='font-size: 14px'>Plantilla <b style='color: #0499ef'>%s</b> no definida, por favor configure la plantilla.</p>"
+}

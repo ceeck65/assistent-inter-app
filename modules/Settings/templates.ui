@@ -70,7 +70,7 @@
      <widget class="QPushButton" name="save_template">
       <property name="geometry">
        <rect>
-        <x>740</x>
+        <x>750</x>
         <y>190</y>
         <width>110</width>
         <height>32</height>
@@ -140,8 +140,8 @@
        <rect>
         <x>20</x>
         <y>140</y>
-        <width>661</width>
-        <height>71</height>
+        <width>600</width>
+        <height>70</height>
        </rect>
       </property>
      </widget>
@@ -180,27 +180,65 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="layoutWidget_2">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>540</x>
-        <y>40</y>
+        <x>541</x>
+        <y>41</y>
         <width>201</width>
-        <height>51</height>
+        <height>50</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_9">
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QLabel" name="label_9">
          <property name="text">
-          <string>Categoría</string>
+          <string>Tipo de producto</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="plans_package"/>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QComboBox" name="plans_package"/>
+         </item>
+        </layout>
        </item>
       </layout>
+     </widget>
+     <widget class="QPushButton" name="update_template">
+      <property name="geometry">
+       <rect>
+        <x>750</x>
+        <y>190</y>
+        <width>110</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Actualizar</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../../images.qrc">
+        <normaloff>:/images/images/icons/save.png</normaloff>:/images/images/icons/save.png</iconset>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="delete_template">
+      <property name="geometry">
+       <rect>
+        <x>630</x>
+        <y>190</y>
+        <width>110</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Eliminiar</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../../images.qrc">
+        <normaloff>:/images/images/icons/delete.png</normaloff>:/images/images/icons/delete.png</iconset>
+      </property>
      </widget>
     </widget>
     <widget class="QTableView" name="tbl_templates">
@@ -208,7 +246,7 @@
       <rect>
        <x>20</x>
        <y>280</y>
-       <width>1000</width>
+       <width>1260</width>
        <height>340</height>
       </rect>
      </property>
@@ -219,11 +257,11 @@
        <x>1060</x>
        <y>20</y>
        <width>221</width>
-       <height>271</height>
+       <height>231</height>
       </rect>
      </property>
      <property name="title">
-      <string>Ayudas</string>
+      <string>Ayuda</string>
      </property>
      <widget class="QLabel" name="label_2">
       <property name="geometry">
@@ -231,7 +269,7 @@
         <x>10</x>
         <y>30</y>
         <width>191</width>
-        <height>211</height>
+        <height>141</height>
        </rect>
       </property>
       <property name="layoutDirection">
@@ -259,6 +297,20 @@
       </property>
       <property name="indent">
        <number>-2</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>180</y>
+        <width>191</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Para editar presione doble click 
+en la celda</string>
       </property>
      </widget>
     </widget>
