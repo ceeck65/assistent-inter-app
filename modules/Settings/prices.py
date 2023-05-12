@@ -15,7 +15,6 @@ from modules.Databases.modeldb import modelDb
 from PyQt5 import QtCore
 import string
 
-
 class Prices(QDialog):
     def __init__(self):
         super(Prices, self).__init__()
@@ -23,7 +22,7 @@ class Prices(QDialog):
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
 
-        self.ui.onlyDouble= QDoubleValidator()
+        self.ui.onlyDouble = QDoubleValidator()
         self.ui.price_ves.setValidator(self.ui.onlyDouble)
         self.ui.price_usd.setValidator(self.ui.onlyDouble)
         self.ui.price_ves_cable.setValidator(self.ui.onlyDouble)
@@ -36,7 +35,8 @@ class Prices(QDialog):
         self.ui.save.clicked.connect(self.savePriceInternetHfc)
         self.ui.save_prices_cable.clicked.connect(self.savePriceCableHfc)
         self.ui.save_prices_dth.clicked.connect(self.savePriceDth)
-        self.ui.save_prices_fibrahogar.clicked.connect(self.savePriceFibrahogar)
+        self.ui.save_prices_fibrahogar.clicked.connect(
+            self.savePriceFibrahogar)
 
         self.ui.update.setVisible(False)
         self.ui.update_prices_cable.setVisible(False)
@@ -62,7 +62,7 @@ class Prices(QDialog):
         self.ui.tblPricesTvHfc.doubleClicked.connect(self.editTvHfc)
         self.ui.tblPricesFibrahogar.doubleClicked.connect(self.editFibrahogar)
         self.ui.tblPricesDth.doubleClicked.connect(self.editDth)
-        self.current_id=""
+        self.current_id = ""
 
     def products(self):
         sql = "SELECT id, name FROM products;"
@@ -79,7 +79,8 @@ class Prices(QDialog):
         description = self.ui.plan.text()
         type_product_id = self.ui.type_product.currentIndex()
         product_id = 2
-        insert = self.insertPrice(name, description, product_id, price_ves, price_usd, type_product_id)
+        insert = self.insertPrice(
+            name, description, product_id, price_ves, price_usd, type_product_id)
         if insert == True:
             self.ui.plan.clear()
             self.ui.price_usd.clear()
@@ -93,7 +94,8 @@ class Prices(QDialog):
         description = self.ui.plan_cable.text()
         type_product_id = self.ui.type_product_cable.currentIndex()
         product_id = 3
-        insert = self.insertPrice(name, description, product_id, price_ves, price_usd, type_product_id)
+        insert = self.insertPrice(
+            name, description, product_id, price_ves, price_usd, type_product_id)
         if insert == True:
             self.ui.plan_cable.clear()
             self.ui.price_usd_cable.clear()
@@ -107,7 +109,8 @@ class Prices(QDialog):
         description = self.ui.plan_dth.text()
         type_product_id = self.ui.type_product_dth.currentIndex()
         product_id = 1
-        insert = self.insertPrice(name, description, product_id, price_ves, price_usd, type_product_id)
+        insert = self.insertPrice(
+            name, description, product_id, price_ves, price_usd, type_product_id)
         if insert == True:
             self.ui.plan_dth.clear()
             self.ui.price_usd_dth.clear()
@@ -121,7 +124,8 @@ class Prices(QDialog):
         description = self.ui.plan_fibrahogar.text()
         type_product_id = self.ui.type_product_fibrahogar.currentIndex()
         product_id = 5
-        insert = self.insertPrice(name, description, product_id, price_ves, price_usd, type_product_id)
+        insert = self.insertPrice(
+            name, description, product_id, price_ves, price_usd, type_product_id)
         if insert == True:
             self.ui.plan_fibrahogar.clear()
             self.ui.price_usd_fibrahogar.clear()
@@ -130,9 +134,9 @@ class Prices(QDialog):
 
     def insertPrice(self, name, description, product_id, price_ves, price_usd, type_product_id):
         temp = name.lower()
-        alias =  temp.replace("/", "_")
-        alias =  alias.replace(" ", "_")
-        alias  = "%s_%s" % (alias, product_id)
+        alias = temp.replace("/", "_")
+        alias = alias.replace(" ", "_")
+        alias = "%s_%s" % (alias, product_id)
         name = string.capwords(name)
         description = string.capwords(description)
         price_ves = 0 if price_ves == "" else float(price_ves)
@@ -141,15 +145,17 @@ class Prices(QDialog):
 
         sql = "INSERT INTO plans_packages (name, description, product_id, price_ves, price_usd, alias, type_product_id) \
                  VALUES (?, ?, ?, ?, ?, ?, ?);"
-        qry = self.db.insert(sql, [name, description, product_id, price_ves, price_usd, alias, type_product_id])
-        print(name, description, product_id, price_ves, price_usd, type_product_id)
+        qry = self.db.insert(
+            sql, [name, description, product_id, price_ves, price_usd, alias, type_product_id])
+        print(name, description, product_id,
+              price_ves, price_usd, type_product_id)
         return qry[0]
 
     def tablePricesInternetHfc(self):
         model = self.getPriceProducts(2)
         table = self.ui.tblPriceInternetHfc
         self.fillTable(table, model)
-        
+
     def tablePricesTvHfc(self):
         model = self.getPriceProducts(3)
         table = self.ui.tblPricesTvHfc
@@ -159,18 +165,23 @@ class Prices(QDialog):
         model = self.getPriceProducts(1)
         table = self.ui.tblPricesDth
         self.fillTable(table, model)
-        
+
     def tablePricesFibrahogar(self):
         model = self.getPriceProducts(5)
         table = self.ui.tblPricesFibrahogar
         self.fillTable(table, model)
 
     def fillTable(self, table, model):
-        model.setHeaderData(0, QtCore.Qt.Horizontal, QtCore.QObject.tr(model, "ID"))
-        model.setHeaderData(1, QtCore.Qt.Horizontal, QtCore.QObject.tr(model, "Planes y Paquetes"))
-        model.setHeaderData(2, QtCore.Qt.Horizontal, QtCore.QObject.tr(model, "Tipo de producto"))
-        model.setHeaderData(3, QtCore.Qt.Horizontal, QtCore.QObject.tr(model, "Precio Bs."))
-        model.setHeaderData(4, QtCore.Qt.Horizontal, QtCore.QObject.tr(model, "Precio Dólar"))
+        model.setHeaderData(0, QtCore.Qt.Horizontal,
+                            QtCore.QObject.tr(model, "ID"))
+        model.setHeaderData(1, QtCore.Qt.Horizontal,
+                            QtCore.QObject.tr(model, "Planes y Paquetes"))
+        model.setHeaderData(2, QtCore.Qt.Horizontal,
+                            QtCore.QObject.tr(model, "Tipo de producto"))
+        model.setHeaderData(3, QtCore.Qt.Horizontal,
+                            QtCore.QObject.tr(model, "Precio Bs."))
+        model.setHeaderData(4, QtCore.Qt.Horizontal,
+                            QtCore.QObject.tr(model, "Precio Dólar"))
         table.setModel(model)
         header = table.horizontalHeader()
         header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
@@ -203,11 +214,12 @@ class Prices(QDialog):
         combo_dth.setModelColumn(1)
         combo_fibrahogar.setModel(model)
         combo_fibrahogar.setModelColumn(1)
-    
+
     def editInternetHfc(self):
         self.ui.save.setVisible(False)
         self.ui.update.setVisible(True)
-        rows = {index.row() for index in self.ui.tblPriceInternetHfc.selectionModel().selectedIndexes()}
+        rows = {index.row() for index in self.ui.tblPriceInternetHfc.selectionModel(
+        ).selectedIndexes()}
         data = ""
         for row in rows:
             row_data = []
@@ -229,7 +241,8 @@ class Prices(QDialog):
     def editTvHfc(self):
         self.ui.save_prices_cable.setVisible(False)
         self.ui.update_prices_cable.setVisible(True)
-        rows = {index.row() for index in self.ui.tblPricesTvHfc.selectionModel().selectedIndexes()}
+        rows = {index.row()
+                for index in self.ui.tblPricesTvHfc.selectionModel().selectedIndexes()}
         data = ""
         for row in rows:
             row_data = []
@@ -251,7 +264,8 @@ class Prices(QDialog):
     def editDth(self):
         self.ui.save_prices_dth.setVisible(False)
         self.ui.update_prices_dth.setVisible(True)
-        rows = {index.row() for index in self.ui.tblPricesDth.selectionModel().selectedIndexes()}
+        rows = {index.row()
+                for index in self.ui.tblPricesDth.selectionModel().selectedIndexes()}
         data = ""
         for row in rows:
             row_data = []
@@ -273,7 +287,8 @@ class Prices(QDialog):
     def editFibrahogar(self):
         self.ui.save_prices_fibrahogar.setVisible(False)
         self.ui.update_prices_fibrahogar.setVisible(True)
-        rows = {index.row() for index in self.ui.tblPricesFibrahogar.selectionModel().selectedIndexes()}
+        rows = {index.row() for index in self.ui.tblPricesFibrahogar.selectionModel(
+        ).selectedIndexes()}
         data = ""
         for row in rows:
             row_data = []
@@ -298,8 +313,9 @@ class Prices(QDialog):
         price_usd = self.ui.price_usd.text()
         type_product_id = self.ui.type_product.currentIndex()
         product_id = 2
-        id= self.current_id
-        self.update(id, name, product_id, price_ves, price_usd, type_product_id)
+        id = self.current_id
+        self.update(id, name, product_id, price_ves,
+                    price_usd, type_product_id)
 
     def updateCable(self):
         name = self.ui.plan_cable.text()
@@ -307,8 +323,9 @@ class Prices(QDialog):
         price_usd = self.ui.price_usd_cable.text()
         type_product_id = self.ui.type_product_cable.currentIndex()
         product_id = 3
-        id= self.current_id
-        self.update(id, name, product_id, price_ves, price_usd, type_product_id)
+        id = self.current_id
+        self.update(id, name, product_id, price_ves,
+                    price_usd, type_product_id)
 
     def updateDth(self):
         name = self.ui.plan_dth.text()
@@ -316,8 +333,9 @@ class Prices(QDialog):
         price_usd = self.ui.price_usd_dth.text()
         type_product_id = self.ui.type_product_dth.currentIndex()
         product_id = 1
-        id= self.current_id
-        self.update(id, name, product_id, price_ves, price_usd, type_product_id)
+        id = self.current_id
+        self.update(id, name, product_id, price_ves,
+                    price_usd, type_product_id)
 
     def updateFibrahogar(self):
         name = self.ui.plan_fibrahogar.text()
@@ -325,15 +343,17 @@ class Prices(QDialog):
         price_usd = self.ui.price_usd_fibrahogar.text()
         type_product_id = self.ui.type_product_fibrahogar.currentIndex()
         product_id = 5
-        id= self.current_id
-        self.update(id, name, product_id, price_ves, price_usd, type_product_id)
-      
+        id = self.current_id
+        self.update(id, name, product_id, price_ves,
+                    price_usd, type_product_id)
+
     def update(self, id, name, product_id, price_ves, price_usd, type_product_id):
         price_ves = 0 if price_ves == "" else float(price_ves)
         price_usd = 0 if price_usd == "" else float(price_usd)
         type_product_id = type_product_id + 1
-        sql = "UPDATE plans_packages SET name=?, product_id=?, price_ves=?, price_usd=?, type_product_id=? WHERE id=?" 
-        qry = self.db.update(sql, [name, product_id, price_ves, price_usd, type_product_id, id])
+        sql = "UPDATE plans_packages SET name=?, product_id=?, price_ves=?, price_usd=?, type_product_id=? WHERE id=?"
+        qry = self.db.update(
+            sql, [name, product_id, price_ves, price_usd, type_product_id, id])
         print(name, product_id, price_ves, price_usd, type_product_id, id, qry)
         if qry == True:
             if product_id == 2:
@@ -345,7 +365,6 @@ class Prices(QDialog):
             if product_id == 5:
                 self.tablePricesFibrahogar()
             self.clear()
-
 
     def clear(self):
         self.ui.plan.clear()

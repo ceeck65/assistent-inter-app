@@ -30,30 +30,30 @@
 		"TV_FAILURE": ", TV FALLA"
 	},
 	"hfc_tv_sales_ab": {
-		"PREFIX": "Muy bien, usted posee",
-		"TOTAL": ", para un monto total de Bs. %.2f todos nuestros precios incluyen IVA."
+		"PREFIX": "Muy bien, usted posee los siguientes servicios expresados en divisas.\n\n",
+		"TOTAL": "Total de Bs. %.2f. Todos nuestros precios incluyen IVA."
 	},
 	"hfc_tv_sales_kb2": {
 		"PREFIX": "// Ab solicita información y costos de plan contratado, se indica posee",
 		"TOTAL": ", total Bs %.2f, ab conforme, se finaliza.-"
 	},
 	"dth_sales_ab": {
-		"PREFIX": "Muy bien, usted posee",
+		"PREFIX": "Muy bien, usted posee los siguientes servicios expresados en divisas.\n\n",
 		"BASIC_SATELITAL": " El Paquete Básico de televisión por cable el cual tiene un costo de Bs. %.2f (Sujeto a cambio tasa BCV)",
 		"TOTAL_VES": ", total Bs %.2f, ab conforme, se finaliza.-",
-		"TOTAL": ", para un monto total de Bs. %.2f, todos nuestros precios incluyen IVA."
+		"TOTAL": "Total de Bs. %.2f. Todos nuestros precios incluyen IVA."
 	},
 	"dth_sales_kb2": {
 		"PREFIX": "// Ab solicita información y costos de plan contratado, se indica posee",
 		"BASIC_SATELITAL": " El Paquete Básico de televisión por cable el cual tiene un costo de Bs. %.2f (Sujeto a cambio tasa BCV)",
 		"TOTAL_VES": ", total Bs %.2f, ab conforme, se finaliza.-",
 		"END": ", ab conforme, se finaliza.-",
-		"TOTAL": ", para un monto total de Bs. %.2f, todos nuestros precios incluyen IVA."
+		"TOTAL": "Total de Bs. %.2f. Todos nuestros precios incluyen IVA."
 	},
 	"fibrahogar_sales_ab": {
-		"PREFIX": "Muy bien, usted posee",
+		"PREFIX": "Muy bien, usted posee los siguientes servicios expresados en divisas.\n\n",
 		"BASIC_SATELITAL": " El Paquete Básico de televisión por cable el cual tiene un costo de Bs. %.2f (Sujeto a cambio tasa BCV)",
-		"TOTAL": ", para un monto total de Bs. %.2f, todos nuestros precios incluyen IVA."
+		"TOTAL": "Total de Bs. %.2f. Todos nuestros precios incluyen IVA."
 	},
 	"fibrahogar_kb2": {
 		"PREFIX": "// Ab solicita información y costos de plan contratado, se indica posee",

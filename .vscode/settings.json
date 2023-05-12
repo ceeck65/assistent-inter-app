@@ -1,0 +1,12 @@
+{
+    "sqltools.useNodeRuntime": true,
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "${workspaceFolder:Assistent-Inter-app}/modules/Databases/database.db",
+            "name": "database",
+            "group": "database"
+        }
+    ]
+}

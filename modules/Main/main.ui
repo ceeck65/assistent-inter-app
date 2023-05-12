@@ -64,7 +64,7 @@
      <x>0</x>
      <y>0</y>
      <width>1368</width>
-     <height>27</height>
+     <height>28</height>
     </rect>
    </property>
    <property name="font">
@@ -78,6 +78,8 @@
     <property name="font">
      <font>
       <pointsize>11</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
     </property>
     <property name="title">
@@ -96,6 +98,8 @@
     <property name="font">
      <font>
       <pointsize>11</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
     </property>
     <property name="mouseTracking">
@@ -129,20 +133,25 @@
     <property name="font">
      <font>
       <pointsize>11</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
     </property>
     <property name="title">
-     <string>Configuraciones</string>
+     <string>Herramientas</string>
     </property>
     <addaction name="actionSettingsDolar"/>
     <addaction name="actionConfiguraci_n_Precios"/>
     <addaction name="action_Templates"/>
     <addaction name="actionProductos"/>
+    <addaction name="actionConfiguraciones"/>
    </widget>
    <widget class="QMenu" name="menuAyuda_2">
     <property name="font">
      <font>
       <pointsize>11</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
     </property>
     <property name="tearOffEnabled">
@@ -351,6 +360,15 @@
   <action name="actionGrilla_HISPASAT">
    <property name="text">
     <string>Grilla HISPASAT</string>
+   </property>
+  </action>
+  <action name="actionConfiguraciones">
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/images/icons/settings.png</normaloff>:/images/images/icons/settings.png</iconset>
+   </property>
+   <property name="text">
+    <string>Configuraciones</string>
    </property>
   </action>
  </widget>

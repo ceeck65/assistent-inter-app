@@ -76,7 +76,7 @@ class modelDb():
 
     def getPriceUSD(self, price_ves, price_usd):
         if price_usd == 0 or price_usd == 0.0:
-            total_usd = (float(price_ves) / self.dolar)
+            total_usd = (float(price_ves) / getDolar())
         else: 
             total_usd = float(price_usd)
         return total_usd
@@ -86,7 +86,7 @@ class modelDb():
             if price_usd == 0 or price_usd == 0.0:
                 total_ves = 0
             else:
-                total_ves = (float(price_usd) * self.dolar)
+                total_ves = (float(price_usd) * getDolar())
         else: 
             total_ves = float(price_ves)
         return total_ves

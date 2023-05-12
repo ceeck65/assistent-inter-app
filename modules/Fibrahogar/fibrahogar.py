@@ -139,9 +139,9 @@ class FibraHogar(QDialog):
         text = "%s%s%s%s%s%s" % (prefix, plans_tv, premium_tv, internet, aditional, total_ves)
         temp_ = "%s%s%s%s%s%s" % (prefix_k2b, premium_tv, internet, aditional, total_ves, labels_k2b["END"])
         temp_ = temp_.replace(" el cual tiene un costo de", "")
-        temp_ = temp_.replace(" todos nuestros precios incluyen IVA", "")
-        temp_ = temp_.replace("para un monto total de ", "")
-        text_k2b = temp_.replace("(Sujeto a cambio tasa BCV)", "")
+        temp_ = temp_.replace(" Todos nuestros precios incluyen IVA", "")
+        temp_ = temp_.replace("Total de ", "")
+        text_k2b = temp_.replace("(Tasa BCV)", "")
 
         self.ui.ticket_ab_fibrahogar.setText(text)
         self.ui.ticket_k2b_fibrahogar.setText(text_k2b)

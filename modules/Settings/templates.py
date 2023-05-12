@@ -41,14 +41,19 @@ class Templates(QDialog):
 
     def fillCombo(self):
         combo_products = self.ui.products
+        combo_products_ab = self.ui.products_ab
         combo_type_template = self.ui.type_template
         model_productos = self.getProducts()
         model_type = self.getTypeTemplate()
 
         combo_products.setModel(model_productos)
+        combo_products_ab.setModel(model_productos)
         combo_products.setModelColumn(1)
+        combo_products_ab.setModelColumn(1)
         combo_type_template.setModel(model_type)
         combo_type_template.setModelColumn(1)
+
+
 
     def fillComboPackages(self, model):
         combo_plans_packages = self.ui.plans_package

@@ -90,7 +90,7 @@
         <x>20</x>
         <y>40</y>
         <width>271</width>
-        <height>51</height>
+        <height>52</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -128,7 +128,7 @@
        <rect>
         <x>21</x>
         <y>111</y>
-        <width>44</width>
+        <width>91</width>
         <height>16</height>
        </rect>
       </property>
@@ -176,7 +176,7 @@
         <x>760</x>
         <y>40</y>
         <width>201</width>
-        <height>50</height>
+        <height>54</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -202,7 +202,7 @@
         <x>530</x>
         <y>40</y>
         <width>211</width>
-        <height>51</height>
+        <height>52</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -224,7 +224,7 @@
         <x>310</x>
         <y>40</y>
         <width>201</width>
-        <height>51</height>
+        <height>52</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -304,6 +304,264 @@
        <rect>
         <x>10</x>
         <y>180</y>
+        <width>191</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Para editar presione doble click 
+en la celda</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_2">
+    <attribute name="title">
+     <string>Plantillas Abonados</string>
+    </attribute>
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>991</width>
+       <height>231</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Nueva Plantilla Abonado</string>
+     </property>
+     <widget class="QPushButton" name="cancel_template_ab">
+      <property name="geometry">
+       <rect>
+        <x>870</x>
+        <y>190</y>
+        <width>110</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Cancelar</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../../images.qrc">
+        <normaloff>:/images/images/icons/cancel.png</normaloff>:/images/images/icons/cancel.png</iconset>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="save_template_2">
+      <property name="geometry">
+       <rect>
+        <x>750</x>
+        <y>190</y>
+        <width>110</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Registrar</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../../images.qrc">
+        <normaloff>:/images/images/icons/save.png</normaloff>:/images/images/icons/save.png</iconset>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_4">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>40</y>
+        <width>281</width>
+        <height>52</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_6">
+       <item>
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Nombre</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="template_name_ab">
+         <property name="placeholderText">
+          <string>Ingrese nombre de plantilla</string>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QTextEdit" name="template_txt_2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>140</y>
+        <width>600</width>
+        <height>70</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>21</x>
+        <y>111</y>
+        <width>91</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Plantilla</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="update_template_2">
+      <property name="geometry">
+       <rect>
+        <x>750</x>
+        <y>190</y>
+        <width>110</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Actualizar</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../../images.qrc">
+        <normaloff>:/images/images/icons/save.png</normaloff>:/images/images/icons/save.png</iconset>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="delete_template_ab">
+      <property name="geometry">
+       <rect>
+        <x>630</x>
+        <y>190</y>
+        <width>110</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Eliminiar</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../../images.qrc">
+        <normaloff>:/images/images/icons/delete.png</normaloff>:/images/images/icons/delete.png</iconset>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_6">
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>40</y>
+        <width>271</width>
+        <height>52</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_9">
+       <item>
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>Alias</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="template_alias_ab">
+         <property name="placeholderText">
+          <string>Alias de la plantilla</string>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_8">
+      <property name="geometry">
+       <rect>
+        <x>630</x>
+        <y>40</y>
+        <width>211</width>
+        <height>52</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_12">
+       <item>
+        <widget class="QLabel" name="label_14">
+         <property name="text">
+          <string>Producto</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="products_ab"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QTableView" name="tbl_templates_ab">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>270</y>
+       <width>1260</width>
+       <height>340</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="geometry">
+      <rect>
+       <x>1060</x>
+       <y>20</y>
+       <width>221</width>
+       <height>231</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Ayuda</string>
+     </property>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>191</width>
+        <height>141</height>
+       </rect>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string>Para agregar datos:
+
+%d     Si es un número entero.
+
+%s     Si es un texto.</string>
+      </property>
+      <property name="textFormat">
+       <enum>Qt::AutoText</enum>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignJustify|Qt::AlignTop</set>
+      </property>
+      <property name="indent">
+       <number>-2</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>170</y>
         <width>191</width>
         <height>41</height>
        </rect>

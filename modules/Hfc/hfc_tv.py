@@ -173,9 +173,9 @@ class HfcTv(QDialog):
             text =      "%s%s%s%s%s%s" % (prefix, tv, premium_tv, internet, aditional, total_ves)
             temp_ =  "%s%s%s%s%s%s" % (labels_k2b["PREFIX"], tv, premium_tv, internet, aditional, total_ves_k2b)
             temp_ = temp_.replace(" el cual tiene un costo de", "")
-            temp_ = temp_.replace(" todos nuestros precios incluyen IVA.", "")
-            temp_ = temp_.replace("para un monto total de ", "")
-            text_k2b = temp_.replace("(Sujeto a cambio tasa BCV)", "")
+            temp_ = temp_.replace(" Todos nuestros precios incluyen IVA.", "")
+            temp_ = temp_.replace("Total de ", "")
+            text_k2b = temp_.replace("(Tasa BCV)", "")
             
             self.ui.ticket_ab_hfc_tv.setText(text)
             self.ui.ticket_k2b_hfc_tv.setText(text_k2b)
